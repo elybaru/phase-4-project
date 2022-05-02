@@ -17,7 +17,13 @@ function App() {
     });
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  if (!user) return (
+    <Routes>
+      <Route path='/login' element={<Login setUser={setUser} />}>
+      </Route>
+      <Route path='/signup' element={<Signup setUser={setUser} />}>
+      </Route>
+    </Routes>);
 
   return (
     <div className="App">
@@ -25,8 +31,8 @@ function App() {
       <Navbar user={user} setUser={setUser} />
       <Routes>
         <Route path='/login' element={<Login />}>
-          <Route path='/signup' element={<Signup />}>
-          </Route>
+        </Route>
+        <Route path='/signup' element={<Signup />}>
         </Route>
       </Routes>
 

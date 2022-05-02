@@ -1,15 +1,18 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:update, :destroy]
 
   skip_before_action :authorize, only: [:create]
 
   def create
         user = User.create(user_params)
+        binding.pry
         if user.valid?
             session[:user_id] = user.id
             render json: user, status: :created
         else
+          
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+          
         end
     end
 
@@ -65,6 +68,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :password_digest)
+      params.permit(:username, :password)
     end
 end
