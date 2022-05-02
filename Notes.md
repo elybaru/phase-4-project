@@ -7,6 +7,9 @@ Login
 full crud Messages
 
 
+self joins?
+
+
 
 ####
 Models

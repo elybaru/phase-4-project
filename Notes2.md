@@ -220,4 +220,25 @@ basic frontend
 
 
 
-Then to test the likeable
+### One on one
+- Git issue
+- Is the polymorphic/ self joins correct?
+- What's in the navbar?
+- What's the name of the blog
+- Route for own blogs
+
+
+## Navbar
+If logged out:
+- Login
+- Signup
+
+If Loggedin
+- Home
+- My Entries
+    - Individual entry
+- Create
+- Explore
+    Users
+        Posts
+- Logout
