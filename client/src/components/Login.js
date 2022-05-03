@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { BASE_URL } from '../constants'
+import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ setUser }) => {
     const defaultFormData = {
         username: '',
         password: ''
@@ -8,13 +10,15 @@ const Login = () => {
 
     const [formData, setFormData] = useState(defaultFormData)
 
+    const navigate = useNavigate();
+
     const handleFormChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("/login", {
+        fetch(BASE_URL + "/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -22,7 +26,15 @@ const Login = () => {
             body: JSON.stringify(formData)
         })
             .then(r => r.json())
-            .then(data => { setFormData(defaultFormData) })
+            .then(data => {
+                setFormData(defaultFormData)
+                if (data.id) {
+                    setUser(data)
+                    navigate(`/home`)
+                }
+
+            })
+
     }
     return (
         <div>

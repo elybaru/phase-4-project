@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { BASE_URL } from '../constants'
 
 const Authors = () => {
     const [authors, setAuthors] = useState([])
 
     useEffect(() => {
 
-        fetch("/users").then((r) => {
+        fetch(BASE_URL + "/users").then((r) => {
             if (r.ok) {
                 r.json().then((data) => setAuthors(data));
             }

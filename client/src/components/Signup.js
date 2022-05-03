@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BASE_URL } from '../constants'
 
 const Signup = () => {
     const defaultFormData = {
@@ -14,7 +15,7 @@ const Signup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("/signup", {
+        fetch(BASE_URL + "/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
