@@ -12,13 +12,13 @@ const Navbar = ({ user, setUser }) => {
         });
     }
 
-    const loggedInLinks = () => {
+    const loggedOutLinks = () => {
         <div className='NavbarDiv'>
         </div>
 
     }
 
-    const loggedOutLinks = () => {
+    const loggedInLinks = () => {
         <div className='NavbarDiv'>
             <Link to='/'>Home</Link>
             <button onClick={handleLogoutClick}>Logout</button>
@@ -30,7 +30,7 @@ const Navbar = ({ user, setUser }) => {
     return (
 
         <div>
-
+            {user.id ? loggedInLinks() : loggedOutLinks()}
         </div>
     )
 }
