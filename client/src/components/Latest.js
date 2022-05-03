@@ -5,7 +5,7 @@ const Latest = ({ setAuthors }) => {
 
     useEffect(() => {
         // A useEffect to grab the 10 latest Posts, must be a custom method from a serializer
-        fetch(BASE_URL + "/users").then((r) => {
+        fetch("/users").then((r) => {
             if (r.ok) {
                 r.json().then((data) => setAuthors(data));
             }

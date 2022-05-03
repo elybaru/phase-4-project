@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     // auto-login
-    fetch(BASE_URL + "/me").then((r) => {
+    fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
@@ -25,10 +25,11 @@ function App() {
 
   if (!user) return (
     <Routes>
-      <Route path='/login' element={<Login setUser={setUser} />}>
+      <Route path='/' element={<Login setUser={setUser} />}>
       </Route>
       <Route path='/signup' element={<Signup setUser={setUser} />}>
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
 
     </Routes>);
 
@@ -37,10 +38,9 @@ function App() {
       <h1>I am a blog site</h1>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path='/home' element={<Home />} />
-        <Route path='/' element={<Latest />}>
-
-        </Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/latest' element={<Latest />} />
+        <Route path="*" element={<Navigate to="/" />} />
 
 
 

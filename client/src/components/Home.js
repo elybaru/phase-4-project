@@ -4,7 +4,7 @@ import { BASE_URL } from '../constants';
 const Home = () => {
 
     const handleClick = (e) => {
-        fetch(BASE_URL + '/posts')
+        fetch('/posts')
             .then(r => r.json())
             .then(data => console.log(data))
     }

@@ -18,7 +18,7 @@ const Login = ({ setUser }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(BASE_URL + "/login", {
+        fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

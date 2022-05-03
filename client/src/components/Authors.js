@@ -6,7 +6,7 @@ const Authors = () => {
 
     useEffect(() => {
 
-        fetch(BASE_URL + "/users").then((r) => {
+        fetch("/users").then((r) => {
             if (r.ok) {
                 r.json().then((data) => setAuthors(data));
             }
