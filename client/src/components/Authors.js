@@ -19,7 +19,6 @@ const Authors = () => {
             <div>
                 {authors ? authors.map(author => {
                     return <Link to={`/authors/${author.id}`}>{author.username}</Link>
-                    // Need to include posts for route /users/id
                 }) : "Loading..."}
             </div>
 

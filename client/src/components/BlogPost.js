@@ -10,7 +10,7 @@ const BlogPost = ({ latestPost }) => {
     return (
         <div>
             <h2>{latestPost.title}</h2>
-            <div>{latestPost.content}</div>
+            <div>{latestPost.short_content}</div>
             <button><Link to={`/posts/${latestPost.id}`}>See more</Link></button>
 
         </div>
