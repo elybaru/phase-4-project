@@ -2,16 +2,16 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 
 const FullBlogPost = () => {
-    const [post, setPost] = useState(null)
+    
 
     let { id } = useParams()
-    const [posts, setPosts] = useState()
+    const [post, setPost] = useState(null)
 
     useEffect(() => {
 
         fetch(`/posts/${id}/`).then((r) => {
             if (r.ok) {
-                r.json().then((data) => setPosts(data));
+                r.json().then((data) => setPost(data));
             }
         });
     }, []);
@@ -30,10 +30,12 @@ const FullBlogPost = () => {
                 </div>
                 <div>
                     <form className="main-comment-form">
-                    <input type='submit' onSubmit={handleSubmit} />
+                    {/* <input type='submit' onSubmit={handleSubmit} /> */}
                     </form>    
                 </div>
-                <div>{post.comments ? post.comments.map : ""}</div>
+                <div>{post.comments ? post.comments_to_display.map(comment => {
+                    <div>{comment.username}</div>
+                }) : ""}</div>
             </div>
 
                 : ""
