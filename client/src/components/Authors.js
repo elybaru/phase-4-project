@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { BASE_URL } from '../constants'
+import { Link } from 'react-router-dom'
+
 
 const Authors = () => {
     const [authors, setAuthors] = useState([])
@@ -12,11 +13,12 @@ const Authors = () => {
             }
         });
     }, []);
+    console.log(authors)
     return (
         <div>
             <div>
                 {authors ? authors.map(author => {
-                    <Link to={`/users/${author.id}`}>{author.username}</Link>
+                    return <Link to={`/authors/${author.id}`}>{author.username}</Link>
                     // Need to include posts for route /users/id
                 }) : "Loading..."}
             </div>

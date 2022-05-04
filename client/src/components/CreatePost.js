@@ -9,10 +9,23 @@ const CreatePost = () => {
 
     const [formData, setFormData] = useState(defaultFormData)
 
-    
+
 
     const handleFormChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        fetch("/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(r => r.json())
+            .then(data => { setFormData(defaultFormData) })
     }
 
     // stateful component for the create form
@@ -22,12 +35,14 @@ const CreatePost = () => {
     return (
         <div>
             <div><h2>Create a new post</h2></div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
-                    <input type="text" name="Title" value={formData.title} onChange={handleFormChange} />
+                    <h3>Title</h3>
+                    <input type="text" name="title" value={formData.title} onChange={handleFormChange} />
                 </div>
                 <div>
-                    <input type="content" name="Body" value={formData.content} onChange={handleFormChange} />
+                    <h4>Body</h4>
+                    <input type="textarea" name="content" className="large-text-input" cols={40} rows={40} value={formData.content} onChange={handleFormChange} />
                 </div>
                 <input type='submit' value='Submit' />
             </form>

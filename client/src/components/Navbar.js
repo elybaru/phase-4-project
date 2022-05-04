@@ -21,9 +21,11 @@ const Navbar = ({ user, setUser }) => {
     const loggedInLinks = () => {
         return (
             <div className='NavbarDiv'>
+                <p>Hello, {user.username}</p>
                 <Link to='/'>Home</Link>
                 <Link to='/create'>Create</Link>
                 <Link to='/latest'>Latest</Link>
+                <Link to='/authors'>Authors</Link>
                 <button onClick={handleLogoutClick}>Logout</button>
             </div>
         )
