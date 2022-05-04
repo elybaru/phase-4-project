@@ -5,8 +5,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import Latest from './components/Latest';
-import { BASE_URL } from './constants'
 import Home from './components/Home'
+import CreatePost from './components/CreatePost'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,22 +24,26 @@ function App() {
   }, []);
 
   if (!user) return (
-    <Routes>
-      <Route path='/' element={<Login setUser={setUser} />}>
-      </Route>
-      <Route path='/signup' element={<Signup setUser={setUser} />}>
-      </Route>
-      <Route path="*" element={<Navigate to="/" />} />
+    <div>
+      <h1>Momentary Muse</h1>
+      <Routes>
 
-    </Routes>);
+        <Route path='/' element={<Login setUser={setUser} />}>
+        </Route>
+        <Route path='/signup' element={<Signup setUser={setUser} />}>
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>);
 
   return (
     <div className="App">
-      <h1>I am a blog site</h1>
       <Navbar user={user} setUser={setUser} />
+      <h1>Momentary Muse</h1>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/latest' element={<Latest />} />
+        <Route path='/create' element={<CreatePost />} />
         <Route path="*" element={<Navigate to="/" />} />
 
 

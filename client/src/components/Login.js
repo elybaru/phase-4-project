@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { BASE_URL } from '../constants'
 import { useNavigate } from 'react-router-dom'
 
 const Login = ({ setUser }) => {

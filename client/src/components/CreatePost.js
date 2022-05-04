@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 
 const CreatePost = () => {
 
-    const [formData, setFormData] = useState(defaultFormData)
-
     const defaultFormData = {
         title: '',
         content: ''
     }
+
+    const [formData, setFormData] = useState(defaultFormData)
+
+    
 
     const handleFormChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
