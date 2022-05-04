@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
 
 const BlogPost = ({ latestPost }) => {
     // receive from fetch or props the blog post, with the comments
@@ -8,6 +9,9 @@ const BlogPost = ({ latestPost }) => {
 
     return (
         <div>
+            <h2>{latestPost.title}</h2>
+            <div>{latestPost.content}</div>
+            <button><Link to={`/posts/${latestPost.id}`}>See more</Link></button>
 
         </div>
     )

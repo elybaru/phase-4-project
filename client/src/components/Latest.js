@@ -3,6 +3,7 @@ import BlogPost from './BlogPost'
 
 const Latest = ({ setAuthors }) => {
     const [latestPosts, setLatestPosts] = useState(null)
+    console.log(latestPosts)
 
     useEffect(() => {
         // A useEffect to grab the 10 latest Posts, must be a custom method from a serializer
@@ -20,7 +21,7 @@ const Latest = ({ setAuthors }) => {
         <div>
             <p>Latest posts</p>
             <div>
-                {latestPosts ? latestPosts.map(latestPost => {
+                {latestPosts? latestPosts.map(latestPost => {
                     return <BlogPost key={latestPost.id} latestPost={latestPost} />
                 }) : ""}
             </div>
