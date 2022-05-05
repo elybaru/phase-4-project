@@ -24,6 +24,7 @@ const Navbar = ({ user, setUser }) => {
                 <p>Hello, {user.username}</p>
                 <Link to='/'>Home</Link>
                 <Link to='/create'>Create</Link>
+                <Link to={`/users/${user.id}`}>My Musings</Link>
                 <Link to='/latest'>Latest</Link>
                 <Link to='/authors'>Authors</Link>
                 <button onClick={handleLogoutClick}>Logout</button>

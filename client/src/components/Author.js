@@ -26,7 +26,6 @@ const Author = () => {
         </div>
     }) : null
 
-    console.log(postsDisplay)
 
 
     return (
