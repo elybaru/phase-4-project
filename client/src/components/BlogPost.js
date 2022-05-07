@@ -8,10 +8,12 @@ const BlogPost = ({ latestPost }) => {
     console.log(latestPost)
 
     return (
-        <div>
-            <h2>{latestPost.title}</h2>
-            <div>{latestPost.short_content}</div>
-            <button><Link to={`/posts/${latestPost.id}`}>See more</Link></button>
+        <div className="muse">
+            <h2 className="muse-title">{latestPost.title}</h2>
+            <div className="muse-preview">{latestPost.short_content}</div>
+            <button className="muse-readmore"><Link to={`/posts/${latestPost.id}`}>Read more</Link></button>
+            <div className="double-border">
+            </div>
 
         </div>
     )

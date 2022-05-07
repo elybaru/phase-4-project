@@ -22,14 +22,14 @@ const Author = () => {
         return <div>
             <h2>{post.title}</h2>
             <div>{post.short_content}</div>
-            <Link to={`/posts/${post.id}`}> Read more </Link>
+            <button className="muse-readmore"><Link to={`/posts/${post.id}`}> Read more </Link></button>
         </div>
     }) : null
 
 
 
     return (
-        <div>
+        <div className="content-wrapper">
 
             {posts ? <h2>{posts[0].user.username}</h2> : null}
 

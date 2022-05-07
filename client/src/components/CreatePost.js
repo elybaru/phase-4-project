@@ -33,8 +33,8 @@ const CreatePost = () => {
     // how to interact with current user, must receive it in props?
 
     return (
-        <div>
-            <div><h2>Create a new post</h2></div>
+        <div className="content-wrapper">
+            <div className="title"><h2>Create a new post</h2></div>
             <form onSubmit={handleSubmit}>
                 <div>
                     <h3>Title</h3>

@@ -18,8 +18,8 @@ const Latest = ({ setAuthors }) => {
     }, []);
 
     return (
-        <div>
-            <p>Latest posts</p>
+        <div className="content-wrapper">
+            <h1 className="title">Latest posts</h1>
             <div>
                 {latestPosts? latestPosts.map(latestPost => {
                     return <BlogPost key={latestPost.id} latestPost={latestPost} />

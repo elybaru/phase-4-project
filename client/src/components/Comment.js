@@ -17,13 +17,17 @@ const Comment = ({comment}) => {
         // when clicked, reveals a form
     }
     return (
-        <div>
+        <div className="individual-comment-wrapper">
             <div>
-                            <div>
+                            <div className="individual-comment-content">
                                 {comment.content}
                             </div>
                             <div>{comment.username}</div>
-                            <button onClick={handleReplyClick}>Reply</button>
+                            <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
+                            <div className="individual-comment-likes-wrapper">
+                                <button className="individual-comment-like-button">Like</button>
+                                <p># likes</p>
+                            </div>
                         </div>
             
 

@@ -15,7 +15,7 @@ const FullBlogPost = ({ user }) => {
                 if (r.ok) {
                     r.json().then((data) => {
                         setPost(data);
-                        
+
                     });
                 }
             });
@@ -23,7 +23,7 @@ const FullBlogPost = ({ user }) => {
         else {
             checkIfAuthor();
         }
-        
+
     }, [post]);
 
     console.log("Am I the author of this post?" + isAuthor)
@@ -59,35 +59,39 @@ const FullBlogPost = ({ user }) => {
 
     // Need to separate the comments into a different component, map them from this component 
 
+    const handleMainLikeClick = (e) => {
+        console.log("You've just hit the main like button")
+    }
+
 
     return (
         <div>
             I am a full blog post
             {post ?
-                <div>
-                    <div>
-                        <h2>{post.title}</h2>
+                <div className="content-wrapper">
+                    <div className="content">
+                        <h2 className="title">{post.title}</h2>
                         <p> by {post.user.username} </p>
                     </div>
-                    <div>
+                    <div className="muse-text-content">
                         {post.content}
                     </div>
                     <div>
-
+                        <button className="main-likes-button" onClick={handleMainLikeClick}>Like</button>
                     </div>
                     <div>
                         {post.likes.length} likes, {post.comments_to_display.length} comments.
                     </div>
                     <div>
                     </div>
-                    <div>
+                    <div className="main-comment-wrapper">
                         <form className="main-comment-form" onSubmit={handleSubmit}>
-                            <h3> Comments </h3>
+                            <h3 className="comments-title"> Comments </h3>
                             <input type="text" placeholder="Write a new comment..." value={newComment} onChange={handleChange} />
                             <input type='submit' />
                         </form >
                     </div>
-                    <div>{post.comments_to_display ? post.comments_to_display.map(comment => {
+                    <div className="all-comments-wrapper">{post.comments_to_display ? post.comments_to_display.map(comment => {
 
                         return <Comment comment={comment} />
                     }) : ""}</div>
