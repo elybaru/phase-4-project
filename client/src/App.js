@@ -66,7 +66,7 @@ function App() {
         <Route path='/latest' element={<Latest />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/authors' element={<Authors />} />
-        <Route path='/authors/:id' element={<Author />} />
+        <Route path='/authors/:id' element={<Author user={user}/>} />
         <Route path='/posts/:id' element={<FullBlogPost user={user}/>} />
         <Route path='/users/:id' element={<Author user={user} />} />
         <Route path="*" element={<Navigate to="/" />} />
