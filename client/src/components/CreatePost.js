@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const CreatePost = () => {
+    let navigate = useNavigate();
 
     const defaultFormData = {
         title: '',
@@ -25,7 +27,11 @@ const CreatePost = () => {
             body: JSON.stringify(formData)
         })
             .then(r => r.json())
-            .then(data => { setFormData(defaultFormData) })
+            .then(data => {
+                console.log(data)
+                setFormData(defaultFormData)
+                navigate(`/posts/${data.id}`) 
+            })
     }
 
     // stateful component for the create form
