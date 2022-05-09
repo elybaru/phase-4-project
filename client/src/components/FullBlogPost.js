@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Comment from './Comment';
 import useAuthor from '../hooks/useAuthor.js';
+import useLike from '../hooks/useLike';
 
 const FullBlogPost = ({ user }) => {
+    let { id } = useParams()
     const [newComment, setNewComment] = useState("")
     const [isAuthor, checkIfAuthor] = useAuthor()
+    const [handleLikeClick, likes] = useLike("post", id)
     const [likeOnBlog, setLikeOnBlog] = useState(false)
     const [post, setPost] = useState(null)
-    let { id } = useParams()
+
 
 
     useEffect(() => {
@@ -30,6 +33,8 @@ const FullBlogPost = ({ user }) => {
 
     console.log("Am I the author of this post?" + isAuthor)
     // why doesn't this change to trye?
+
+    // to check if user has liked, new Set [], use .has
 
     const handleChange = (e) => {
         setNewComment(e.target.value)
@@ -58,40 +63,6 @@ const FullBlogPost = ({ user }) => {
 
     // Need to separate the comments into a different component, map them from this component 
 
-    const handleMainLikeClick = (e) => {
-        e.preventDefault()
-        fetch(`/posts/${id}/likes`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ user_id: user.id, likeable_type: "post" })
-        })
-            .then(r => r.json())
-            .then(data => {
-                setPost(...post, { likes: data })
-                setLikeOnBlog(true)
-            })
-        console.log("You've just hit the main like button")
-    }
-
-    // this isn't working
-    const handleCommentLikeClick = (e) => {
-        e.preventDefault()
-        fetch(`/likes`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ user_id: user.id, likeable_type: "comment" })
-        })
-            .then(r => r.json())
-            .then(data => console.log(data))
-    }
-
-    console.log(likeOnBlog)
-
-
     return (
         <div>
             {post ?
@@ -104,7 +75,7 @@ const FullBlogPost = ({ user }) => {
                         {post.content}
                     </div>
                     <div>
-                        <button className="main-likes-button" onClick={handleMainLikeClick}>Like</button>
+                        <button className="main-likes-button" onClick={handleLikeClick}>Like</button>
                     </div>
                     <div>
                         {post.likes.length} likes, {post.comments_to_display.length} comments.
@@ -115,9 +86,6 @@ const FullBlogPost = ({ user }) => {
                         <form className="main-comment-form" onSubmit={handleSubmit}>
                             <h3 className="comments-title"> Comments </h3>
                             <input type="text" placeholder="Write a new comment..." value={newComment} onChange={handleChange} />
-                            <div>
-                                <button className="main-likes-button" onClick={e => handleCommentLikeClick(e)}>Like comment</button>
-                            </div>
                             <input type='submit' />
                         </form >
                     </div>

@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 const Navbar = ({ user, setUser }) => {
 
-    function handleLogoutClick() {
-        fetch("/logout", { method: "DELETE" }).then((r) => {
-            if (r.ok) {
-                setUser(null);
-            }
-        });
-    }
+    // function handleLogoutClick() {
+    //     fetch("/logout", { method: "DELETE" }).then((r) => {
+    //         if (r.ok) {
+    //             setUser(null);
+    //         }
+    //     });
+    // }
 
     const loggedOutLinks = () => {
         <div className='navlinks'>
@@ -26,7 +26,7 @@ const Navbar = ({ user, setUser }) => {
                 <Link to={`/users/${user.id}`}>My Musings</Link>
                 <Link to='/latest'>Latest</Link>
                 <Link to='/authors'>Authors</Link>
-                <button onClick={handleLogoutClick}>Logout</button>
+                {/* <button onClick={handleLogoutClick}>Logout</button> */}
 
             </div>
         )

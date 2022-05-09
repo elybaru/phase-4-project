@@ -28,6 +28,14 @@ function App() {
     });
   }, []);
 
+  function handleLogoutClick() {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+        if (r.ok) {
+            setUser(null);
+        }
+    });
+}
+
   if (!user) return (
     <div className="wrapper">
       
@@ -57,7 +65,7 @@ function App() {
     </div>
     <div className="item">
     <span className="greeting">Hello, {user.username}</span>
-    <button>Placeholder logout</button>
+    <button onClick={handleLogoutClick}>Logout</button>
     </div>
     </div>
       <Navbar user={user} setUser={setUser} />
