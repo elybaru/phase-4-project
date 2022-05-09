@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import BlogPost from './BlogPost';
+import useAuthor from '../hooks/useAuthor.js';
 
-const Author = ({user}) => {
+const Author = ({ user }) => {
     let { id } = useParams()
     const [posts, setPosts] = useState()
-    const [isAuthor, setIsAuthor] = useState(false)
+    const [isAuthor, checkIfAuthor] = useAuthor()
 
     useEffect(() => {
 
@@ -13,23 +14,17 @@ const Author = ({user}) => {
             if (r.ok) {
                 r.json().then((data) => {
                     setPosts(data)
-                    checkIfAuthor()
+                    checkIfAuthor(id, user.id)
                 });
             }
         });
     }, [id]);
 
     console.log(posts)
-    // console.log(isAuthor)
+    console.log(user)
+    console.log("Am I the author of these posts? " + isAuthor)
 
-    const checkIfAuthor = () => {
-        // if (posts.user.id === user.id)
-        //     setIsAuthor(true)
-        console.log(isAuthor)
-    }
-    
-
-    const postsDisplay = posts? posts.map(post => {
+    const postsDisplay = posts ? posts.map(post => {
         return <div>
             <h2>{post.title}</h2>
             <div>{post.short_content}</div>

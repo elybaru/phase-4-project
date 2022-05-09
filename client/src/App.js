@@ -12,6 +12,7 @@ import Authors from './components/Authors'
 import Author from './components/Author'
 import FullBlogPost from './components/FullBlogPost';
 import CurrentUserPosts from './components/CurrentUserPosts'
+import EditPost from './components/EditPost';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -77,6 +78,7 @@ function App() {
         <Route path='/authors/:id' element={<Author user={user}/>} />
         <Route path='/posts/:id' element={<FullBlogPost user={user}/>} />
         <Route path='/users/:id' element={<Author user={user} />} />
+        <Route path='/posts/:id/edit' element={<EditPost user={user}/>} />
         <Route path="*" element={<Navigate to="/" />} />
 
 

@@ -2,11 +2,17 @@ Rails.application.routes.draw do
   
  
   resources :likes
-  resources :comments
-  resources :posts
-  resources :users
+  resources :comments do 
+    resources :likes
+  end
+  resources :posts do
+    resources :comments, :likes
+  end
+  resources :users do 
+    resources :posts
+  end
 
-  get '/login', to: 'sessions#create'
+  post '/login', to: 'sessions#create'
   post '/signup', to: 'users#create'
   get '/welcome', to: 'sessions#welcome'
   delete '/logout', to: 'sessions#destroy'

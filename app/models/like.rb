@@ -1,6 +1,6 @@
 class Like < ApplicationRecord
+  validates :user_id, uniqueness: { scope:[:likeable_id, :likeable_type]}
   belongs_to :user
-
   belongs_to :likeable, polymorphic:true
 
   # custom validation only lets a user create a like if likeable type is comment or post AND if user is unique

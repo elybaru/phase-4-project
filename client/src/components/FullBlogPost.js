@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Comment from './Comment';
 import useAuthor from '../hooks/useAuthor.js';
 import useLike from '../hooks/useLike';
@@ -32,6 +32,11 @@ const FullBlogPost = ({ user }) => {
     }, [post]);
 
     console.log("Am I the author of this post?" + isAuthor)
+
+
+
+
+
     // why doesn't this change to trye?
 
     // to check if user has liked, new Set [], use .has
@@ -61,6 +66,17 @@ const FullBlogPost = ({ user }) => {
 
     console.log(post)
 
+    const handleEditPost = (e) => {
+        console.log({
+            title: post.title,
+            content: post.content
+        })
+    }
+
+    const renderEditPost = () => {
+        return <button onClick={handleEditPost}>Edit</button>
+    }
+
     // Need to separate the comments into a different component, map them from this component 
 
     return (
@@ -79,6 +95,9 @@ const FullBlogPost = ({ user }) => {
                     </div>
                     <div>
                         {post.likes.length} likes, {post.comments_to_display.length} comments.
+                    </div>
+                    <div>
+                        {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
                     </div>
                     <div>
                     </div>

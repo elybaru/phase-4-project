@@ -242,3 +242,70 @@ If Loggedin
     Users
         Posts
 - Logout
+
+
+## Monday eve
+- Login issues
+- Routes, conditionally render or behind auth?
+
+
+## Tuesday
+
+For the likes, currently:
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "likeable_id"
+    t.string "likeable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end 
+
+  I think this is necessary so a post or comment can be liked only once per user:
+
+  t.index ["user_id", "post_id], name: "index_likes_on_user_id", unique: true
+
+  and also:
+
+  t.integer "likeable_id", null: false
+
+  And I updated the like.rb model with a validation:
+
+  class Like < ApplicationRecord
+  validates :user_id, uniqueness: { scope:[:likeable_id, :likeable_type]}
+  belongs_to :user
+  belongs_to :likeable, polymorphic:true
+
+
+## Weds
+
+XX List authors, navlink to nested post route
+/user/:id/posts/:id 
+
+XX Create post
+
+- Display username with list of their blogs
+
+- Do not display user's own user page link- use navbar menu for that (need to link that to the user)
+
+- Display short_content for blog post 
+
+## Weds eve
+- added :likes to post serializer, correct?
+
+## Thurs
+- need to add dependent destroy in user model, like so:
+
+# app/models/user.rb
+  class User < ActiveRecord::Base
+    has_many :posts, dependent: :destroy
+  end
+
+
+  ### Fri
+  - comments
+   ---- edit comments if author
+   - posts edit if author (also delete)
+   - delete user
+   -likes

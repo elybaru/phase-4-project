@@ -3,4 +3,5 @@ class CommentSerializer < ActiveModel::Serializer
   has_one :post
   has_one :user
   has_one :parent
+  has_many :likeable
 end
