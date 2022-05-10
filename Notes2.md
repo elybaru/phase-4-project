@@ -309,3 +309,25 @@ XX Create post
    - posts edit if author (also delete)
    - delete user
    -likes
+
+### Remaining features
+ - edit comment
+ - delete comment (consider dependent parent)
+ - delete post
+ - render likes for post
+ - render likes for comment
+ - import font awesome hearts for likes
+ - conditionally render like and unlike button
+ - handlers for unlike
+ - reply to comment
+ - null error when new user has no posts in 'my musings'
+ - delete user's account
+ 
+
+ stretch features
+
+  - cancel edit post
+ - cancel edit comment
+ - eliminate route for /users if only using /authors
+ 
+

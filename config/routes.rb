@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   resources :posts do
     resources :comments, :likes
+    post '/comment/:id', to: 'comments#create_comment_reply'
   end
   resources :users do 
     resources :posts
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   get '/welcome', to: 'sessions#welcome'
   delete '/logout', to: 'sessions#destroy'
+
 
   
   get '/me', to: 'users#show'

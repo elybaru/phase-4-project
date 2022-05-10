@@ -10,13 +10,23 @@ class CommentsController < ApplicationController
         render json: comment, status: :created
     end
 
+    def create_comment_reply
+        post = Post.find(params[:post_id])
+        comment = post.comments.find(params[:id])
+        if comment
+            comment.comments.create(comment_params)
+        end
+    end
+
+
+
       ## where are strong params
 
     private
       
     ## how to incorporate this?
-    
+
     def comment_params
-        params.require(:comment).permit(:content, :parent_id).merge(post_id: params[:post_id])
+        params.require(:comment).permit(:content, :parent_id).merge(post_id: params[:post_id], user_id: current_user.id)
     end
 end

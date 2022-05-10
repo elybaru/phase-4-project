@@ -16,7 +16,8 @@ class PostSerializer < ActiveModel::Serializer
       {username: comment.user.username,
       content: comment.content,
       id: comment.id,
-      likes: comment.likes
+      likes: comment.likes,
+      comments: comment.comments
     }
     end
   end

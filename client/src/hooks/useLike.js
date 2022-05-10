@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 const useLike = (likeableType, id) => {
     const [likes, setLikes] = useState(null)
+    const [currentUserPostLike, setCurrentUserPostLike] = useState(false)
 
     // handle Likes
     // likeablility---- posts or comments, they need to pass in type and id
@@ -40,7 +41,12 @@ const useLike = (likeableType, id) => {
             .then(data => console.log(data))
     }
 
-    return [handleLikeClick, likes]
+    const currentUserLikeOnPost = (post, user) => {
+        const liked = post.likes.filter(like => like.user_id === user.id)
+        setCurrentUserPostLike(!!liked)
+    }
+
+    return [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost]
 }
 
 export default useLike
