@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-const CommentForm = ({parentId}) => {
+
+const CommentForm = ({ comment, setPost, post }) => {
+    let { id } = useParams()
     const [newComment, setNewComment] = useState("")
 
     const handleChange = (e) => {
@@ -9,12 +12,12 @@ const CommentForm = ({parentId}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`/posts/${id}/comments`, {
+        fetch(`/posts/${id}/comments/${comment.id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ parent_id: parentId, content: newComment })
+            body: JSON.stringify({ parent_id: comment.id, content: newComment })
         })
             .then(r => r.json())
             .then(data => {
@@ -22,15 +25,15 @@ const CommentForm = ({parentId}) => {
                 setNewComment("")
             })
     }
-    
+
     return (
         <div>
-             <form className="main-comment-form" onSubmit={handleSubmit}>
-                            <h3> Comments </h3>
-                            <input type="text" placeholder="Write a new comment..." value={newComment} onChange={handleChange} />
-                            <input type='submit' />
-                        </form >
-            
+            <form className="main-comment-form" onSubmit={handleSubmit}>
+                <h3> </h3>
+                <input type="text" placeholder="Write a new comment..." value={newComment} onChange={handleChange} />
+                <input type='submit' />
+            </form >
+
         </div>
     )
 }

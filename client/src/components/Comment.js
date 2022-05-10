@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import useLike from "../hooks/useLike"
+import CommentForm from './CommentForm'
 
-const Comment = ({ comment, user }) => {
+const Comment = ({ comment, user, setPost, post }) => {
     const [handleLikeClick] = useLike("comment", comment.id)
+    const [replyClicked, setReplyClicked] = useState(false)
 
     // receive comment info, including likes, from props, from fullblogpost
     // check the current user if they can edit
@@ -16,8 +18,15 @@ const Comment = ({ comment, user }) => {
     // 
 
     const handleReplyClick = (e) => {
-        // when clicked, reveals a form
+        e.preventDefault()
+        if (replyClicked === true) {
+            setReplyClicked(false)
+        }
+        else {
+            setReplyClicked(true)
+        }
     }
+    console.log(replyClicked)
 
     // const handleCommentLikeClick = (e, id) => {
     //     e.preventDefault()
@@ -41,6 +50,8 @@ const Comment = ({ comment, user }) => {
                 </div>
                 <div>{comment.username}</div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
+                <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post}/> : ""}
+                </div>
                 <div className="individual-comment-likes-wrapper">
                     <button className="individual-comment-like-button" onClick={e => handleLikeClick(e, comment.id)}>Like</button>
                     <p>{comment.likes.length} likes</p>

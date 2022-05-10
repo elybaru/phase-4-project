@@ -8,7 +8,7 @@ const FullBlogPost = ({ user }) => {
     let { id } = useParams()
     const [newComment, setNewComment] = useState("")
     const [isAuthor, checkIfAuthor] = useAuthor()
-    const [handleLikeClick, likes] = useLike("post", id)
+    const [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost, handleUnlikeClick, setCurrentUserPostLike] = useLike("post", id)
     const [likeOnBlog, setLikeOnBlog] = useState(false)
     const [post, setPost] = useState(null)
 
@@ -27,11 +27,29 @@ const FullBlogPost = ({ user }) => {
         }
         else {
             checkIfAuthor(post.user.id, user.id);
+            currentUserLikeOnPost(post, user);
         }
 
     }, [post]);
 
     console.log("Am I the author of this post?" + isAuthor)
+
+    const displayUnlikePost = () => {
+        return (
+            <button className="main-likes-button" onClick={(e) => {
+                handleUnlikeClick(post.id).then(() => setCurrentUserPostLike(false))
+            }} size="small">Unlike</button>
+
+        )
+    }
+
+    const displayLikePost = () => {
+        return (
+            <button className="main-likes-button" onClick={(e) => {
+                handleLikeClick(e).then(() => setCurrentUserPostLike(true))
+            }} size="small">Like</button>
+        )
+    }
 
 
 
@@ -91,7 +109,8 @@ const FullBlogPost = ({ user }) => {
                         {post.content}
                     </div>
                     <div>
-                        <button className="main-likes-button" onClick={handleLikeClick}>Like</button>
+                        {currentUserPostLike ? displayUnlikePost() : displayLikePost()}
+
                     </div>
                     <div>
                         {post.likes.length} likes, {post.comments_to_display.length} comments.
@@ -110,7 +129,7 @@ const FullBlogPost = ({ user }) => {
                     </div>
                     <div className="all-comments-wrapper">{post.comments_to_display ? post.comments_to_display.map(comment => {
 
-                        return <Comment comment={comment} user={user} />
+                        return <Comment comment={comment} user={user} setPost={setPost} post={post} />
                     }) : ""}</div>
                 </div>
 
