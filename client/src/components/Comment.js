@@ -48,16 +48,16 @@ const Comment = ({ comment, user, setPost, post }) => {
                 <div className="individual-comment-content">
                     {comment.content}
                 </div>
-                <div>{comment.username}</div>
+                <div>{comment.user.username}</div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
                 <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} /> : ""}
                 </div>
                 <div>
-                    {comment.comments_to_display ? comment.comments_to_display.map(comment => { <Comment comment={comment} /> }) : null}
+                    {comment.comments ? comment.comments.map(comment => { <Comment comment={comment} /> }) : null}
                 </div>
                 <div className="individual-comment-likes-wrapper">
                     <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
-                    <p>{comment.likes.length} likes</p>
+                    <p>{comment.likes ? comment.likes.length : null} likes</p>
                 </div>
             </div>
 

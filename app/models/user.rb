@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
     has_many :posts, dependent: :destroy
     has_many :comments
-    has_many :posts_comments, through: :posts
+    # has_many :posts_comments, through: :posts
 
     validates :username, presence: true, uniqueness: true
 end

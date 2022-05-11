@@ -1,7 +1,7 @@
 class PostSerializer < ActiveModel::Serializer
   attributes :id, :title, :content, :latest_posts, :short_content, :comments, :comments_to_display, :likes
   has_one :user, except: [:password_digest]
-  has_many :comments, serializer: CommentSerializer
+  has_many :comments
 
   def latest_posts
     Post.last(10)

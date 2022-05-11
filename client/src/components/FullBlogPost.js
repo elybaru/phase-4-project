@@ -78,7 +78,8 @@ const FullBlogPost = ({ user }) => {
         })
             .then(r => r.json())
             .then(data => {
-                setPost({ ...post, comments_to_display: data.post.comments_to_display })
+                // console.log("I AM THE RETURNED DATA FROM COMMENT" + data)
+                setPost({ ...post, comments: [...post.comments, data] })
                 setNewComment("")
             })
     }
@@ -98,6 +99,11 @@ const FullBlogPost = ({ user }) => {
         return <button onClick={handleEditPost}>Edit</button>
     }
 
+    const handleDeleteClick = (e, id) => {
+        e.preventDefault()
+        console.log(id)
+    }
+
     // Need to separate the comments into a different component, map them from this component 
 
     return (
@@ -112,14 +118,17 @@ const FullBlogPost = ({ user }) => {
                         {post.content}
                     </div>
                     <div>
-                        {isLiked ? "UNLIKE" : "LIKE"}
-
+                        <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
+                        {/* {isLiked ? "UNLIKE" : "LIKE"} */}
                     </div>
                     <div>
                         {post.likes.length} likes, {post.comments_to_display.length} comments.
                     </div>
                     <div>
                         {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
+                    </div>
+                    <div>
+                        {isAuthor ? <button className="muse-readmore" onClick={handleDeleteClick}>Delete Muse</button> : ""}
                     </div>
                     <div>
                     </div>
@@ -130,7 +139,7 @@ const FullBlogPost = ({ user }) => {
                             <input type='submit' />
                         </form >
                     </div>
-                    <div className="all-comments-wrapper">{post.comments_to_display ? post.comments_to_display.map(comment => {
+                    <div className="all-comments-wrapper">{post.comments ? post.comments.map(comment => {
 
                         return <Comment comment={comment} user={user} setPost={setPost} post={post} />
                     }) : ""}</div>

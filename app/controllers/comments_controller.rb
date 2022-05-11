@@ -19,6 +19,20 @@ class CommentsController < ApplicationController
         render json: post, status: :created
     end
 
+    ## New today thursday
+    def update
+        post = Post.find(params[:post_id])
+        comment = post.comments.find(params[:id])
+        comment.update!(comment_params)
+        render json: comment, status: :created
+    end
+
+    def destroy
+        post = Post.find(params[:post_id])
+        comment = post.comment.find(params[:id])
+        comment.destroy
+    end
+
 
 
       ## where are strong params
