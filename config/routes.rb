@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   
  
   resources :likes
+  get '/post/:post_id/likes', to: 'likes#likes_on_post'
   resources :comments do 
     resources :likes
   end
   resources :posts do
     resources :comments, :likes
-    post '/comment/:id', to: 'comments#create_comment_reply'
+    post '/comments/:id', to: 'comments#create_comment_reply'
   end
   resources :users do 
     resources :posts

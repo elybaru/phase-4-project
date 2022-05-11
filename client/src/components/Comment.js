@@ -3,7 +3,7 @@ import useLike from "../hooks/useLike"
 import CommentForm from './CommentForm'
 
 const Comment = ({ comment, user, setPost, post }) => {
-    const [handleLikeClick] = useLike("comment", comment.id)
+    const [isLiked, like] = useLike("comment", comment, user.id)
     const [replyClicked, setReplyClicked] = useState(false)
 
     // receive comment info, including likes, from props, from fullblogpost
@@ -50,10 +50,13 @@ const Comment = ({ comment, user, setPost, post }) => {
                 </div>
                 <div>{comment.username}</div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
-                <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post}/> : ""}
+                <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} /> : ""}
+                </div>
+                <div>
+                    {comment.comments_to_display ? comment.comments_to_display.map(comment => { <Comment comment={comment} /> }) : null}
                 </div>
                 <div className="individual-comment-likes-wrapper">
-                    <button className="individual-comment-like-button" onClick={e => handleLikeClick(e, comment.id)}>Like</button>
+                    <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
                     <p>{comment.likes.length} likes</p>
                 </div>
             </div>

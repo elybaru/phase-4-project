@@ -1,52 +1,82 @@
 import React, { useState, useEffect } from 'react'
 
-const useLike = (likeableType, id) => {
-    const [likes, setLikes] = useState(null)
-    const [currentUserPostLike, setCurrentUserPostLike] = useState(false)
-
-    // handle Likes
-    // likeablility---- posts or comments, they need to pass in type and id
-    // how many likes does comment or post have?
-    // are they from the current user?
-    // has it been liked by the user
+const useLike = (likeableType, likeable, userId) => {
+    const [liked, setLiked] = useState(undefined)
+    const [likeId, setLikeId] = useState(null)
 
     useEffect(() => {
         // component will mount before id, and check if undefined or null then dont do anything
-        if (id) {
-            fetch(`/${likeableType}s/${id}/likes`)
-                .then(r => r.json())
-                .then(data => setLikes(data))
+        if (likeable && likeable.likes) {
+            likeable.likes.forEach(like => (like.user_id === userId) ? setLikedandLikeId(like) : null)
+            // need to set likeId to the id of the like  setLikeId(like.id)
         }
-    }, [id])
+    }, [likeable])
 
-    const handleLikeClick = (e) => {
-        e.preventDefault()
-        fetch(`/likes`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ likeable_id: id, likeable_type: likeableType })
-        })
-            .then(r => r.json())
-            .then(data => console.log(data))
+    const setLikedandLikeId = (like) => {
+        setLiked(true)
+        setLikeId(like.id)
     }
 
-    const handleUnlikeClick = (e, id) => {
-        e.preventDefault()
-        fetch(`/likes/${id}`, {
-            method: 'DELETE'
-        })
-            .then(r => r.json())
-            .then(data => console.log(data))
+    const like = () => {
+        if (!liked) {
+            fetch(`/likes`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ likeable_id: likeable.id, likeable_type: likeableType })
+            }).then(resp => resp.json())
+                .then(data => setLikeId(data.id))
+                .then(_ => setLiked(true))
+        } else {
+            fetch(`/likes/${likeId}`, {
+                method: 'DELETE'
+            })
+                .then(_ => setLiked(false))
+            // fetch request to an endpoint to delete a reference to a like
+            // and then setLiked(false) afterwards
+        }
     }
 
-    const currentUserLikeOnPost = (post, user) => {
-        const liked = post.likes.filter(like => like.user_id === user.id)
-        setCurrentUserPostLike(!!liked)
-    }
+    return [liked, like]
+    // const [currentUserPostLike, setCurrentUserPostLike] = useState(false)
 
-    return [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost]
+    // // handle Likes
+    // // likeablility---- posts or comments, they need to pass in type and id
+    // // how many likes does comment or post have?
+    // // are they from the current user?
+    // // has it been liked by the user
+
+
+
+    // const handleLikeClick = (e) => {
+    //     e.preventDefault()
+    //     fetch(`/likes`, {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({ likeable_id: id, likeable_type: likeableType })
+    //     })
+    //         .then(r => r.json())
+    //         .then(data => console.log(data))
+    // }
+
+    // const handleUnlikeClick = (e, id) => {
+    //     e.preventDefault()
+    //     return fetch(`/likes/${id}`, {
+    //         method: 'DELETE'
+    //     })
+    //         .then(r => r.json())
+    // }
+
+    // const currentUserLikeOnPost = (postOrComment, userId) => {
+
+    //     // const liked = postOrComment.likes.filter(like => like.user_id === user.id)
+    //     setCurrentUserPostLike(!!)
+    // }
+
+    // return [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost, handleUnlikeClick, setCurrentUserPostLike]
 }
 
 export default useLike

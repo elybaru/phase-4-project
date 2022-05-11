@@ -5,10 +5,21 @@ class LikesController < ApplicationController
 
     # post_likes
 
-    def index
-        # need to get id and type
-        # url will contain like or comment route
-        likes = Likes.all 
+    # def index
+    #     # need to get id and type
+    #     # url will contain like or comment route
+    #     likes = Likes.all 
+    #     render json: likes, status: :created
+    # end
+
+    def show
+        like = Like.find(params[:id])
+        render json: like, status: :created
+    end
+
+    def likes_on_post
+        post = Post.find(params[:id])
+        likes = post.likes
         render json: likes, status: :created
     end
 
@@ -40,9 +51,7 @@ class LikesController < ApplicationController
 
     ## where are strong params
 
-    def destroy
-        post = Post.find(params[:post_id])
-    end
+    
 
     private
 

@@ -11,8 +11,14 @@ class PostSerializer < ActiveModel::Serializer
     "#{self.object.content[0..50]}..."
   end
 
+  # comment
+  # id, parent_id, comments (Array of child comments, and all share the same structure)
+
   def comments_to_display
-    self.object.comments.map do |comment| 
+    post_comments = self.object.comments.filter do |comment|
+      !comment.parent_id
+    end
+    post_comments.map do |comment| 
       {username: comment.user.username,
       content: comment.content,
       id: comment.id,

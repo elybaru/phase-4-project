@@ -8,9 +8,11 @@ const FullBlogPost = ({ user }) => {
     let { id } = useParams()
     const [newComment, setNewComment] = useState("")
     const [isAuthor, checkIfAuthor] = useAuthor()
-    const [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost, handleUnlikeClick, setCurrentUserPostLike] = useLike("post", id)
-    const [likeOnBlog, setLikeOnBlog] = useState(false)
     const [post, setPost] = useState(null)
+    const [isLiked, like] = useLike("post", post, user.id)
+    // const [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost, handleUnlikeClick, setCurrentUserPostLike] = useLike("post", id)
+    const [likeOnBlog, setLikeOnBlog] = useState(false)
+
 
 
 
@@ -27,34 +29,35 @@ const FullBlogPost = ({ user }) => {
         }
         else {
             checkIfAuthor(post.user.id, user.id);
-            currentUserLikeOnPost(post, user);
+            // currentUserLikeOnPost(post, user);
         }
 
     }, [post]);
 
     console.log("Am I the author of this post?" + isAuthor)
 
-    const displayUnlikePost = () => {
-        return (
-            <button className="main-likes-button" onClick={(e) => {
-                handleUnlikeClick(post.id).then(() => setCurrentUserPostLike(false))
-            }} size="small">Unlike</button>
+    // const displayUnlikePost = () => {
+    //     return (
+    //         <button className="main-likes-button" onClick={(e) => {
+    //             handleUnlikeClick(e, post.id).then(() => {
+    //                 setCurrentUserPostLike(false)
+    //                 setPost(post => {
+    //                     return { ...post, likes: post.likes.filter(like => like.user_id !== user.id) }
+    //                 })
 
-        )
-    }
+    //             })
+    //         }} size="small">Unlike</button>
 
-    const displayLikePost = () => {
-        return (
-            <button className="main-likes-button" onClick={(e) => {
-                handleLikeClick(e).then(() => setCurrentUserPostLike(true))
-            }} size="small">Like</button>
-        )
-    }
+    //     )
+    // }
 
-
-
-
-
+    // const displayLikePost = () => {
+    //     return (
+    //         <button className="main-likes-button" onClick={(e) => {
+    //             handleLikeClick(e).then(() => setCurrentUserPostLike(true))
+    //         }} size="small">Like</button>
+    //     )
+    // }
     // why doesn't this change to trye?
 
     // to check if user has liked, new Set [], use .has
@@ -109,7 +112,7 @@ const FullBlogPost = ({ user }) => {
                         {post.content}
                     </div>
                     <div>
-                        {currentUserPostLike ? displayUnlikePost() : displayLikePost()}
+                        {isLiked ? "UNLIKE" : "LIKE"}
 
                     </div>
                     <div>

@@ -21,7 +21,8 @@ const CommentForm = ({ comment, setPost, post }) => {
         })
             .then(r => r.json())
             .then(data => {
-                setPost({ ...post, comments_to_display: data.post.comments_to_display })
+                setPost(data)
+                // { ...post, comments_to_display: data.post.comments_to_display })
                 setNewComment("")
             })
     }

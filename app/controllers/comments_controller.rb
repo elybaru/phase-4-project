@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
         if comment
             comment.comments.create(comment_params)
         end
+        render json: post, status: :created
     end
 
 
