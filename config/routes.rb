@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   
  
   resources :likes
-  get '/post/:post_id/likes', to: 'likes#likes_on_post'
   resources :comments do 
     resources :likes
   end
+  get 'posts/latest', to: 'posts#latest_posts'
   resources :posts do
     resources :comments, :likes
     post '/comments/:id', to: 'comments#create_comment_reply'
@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   get '/welcome', to: 'sessions#welcome'
   delete '/logout', to: 'sessions#destroy'
+
+  
 
 
   

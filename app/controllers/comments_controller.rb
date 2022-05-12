@@ -28,9 +28,11 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        post = Post.find(params[:post_id])
-        comment = post.comment.find(params[:id])
-        comment.destroy
+        # post = Post.find(params[:post_id])
+        # comment = post.comment.find(params[:id])
+        # comment.destroy
+        comment = Comment.find(params[:id]).destroy
+        # restful convention dont return on delete
     end
 
 

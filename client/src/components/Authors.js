@@ -18,7 +18,7 @@ const Authors = () => {
         <div>
             <div>
                 {authors ? authors.map(author => {
-                    return <Link to={`/authors/${author.id}`}>{author.username}</Link>
+                    return <Link key={author.id} to={`/authors/${author.id}`}>{author.username}</Link>
                 }) : "Loading..."}
             </div>
 

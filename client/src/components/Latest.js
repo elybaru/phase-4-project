@@ -7,11 +7,10 @@ const Latest = ({ setAuthors }) => {
 
     useEffect(() => {
         // A useEffect to grab the 10 latest Posts, must be a custom method from a serializer
-        fetch("/posts").then((r) => {
+        fetch("posts/latest").then((r) => {
             if (r.ok) {
                 r.json().then((data) => {
                     setLatestPosts(data)
-                    console.log(latestPosts)
                 });
             }
         });
@@ -21,7 +20,7 @@ const Latest = ({ setAuthors }) => {
         <div className="content-wrapper">
             <h1 className="title">Latest posts</h1>
             <div>
-                {latestPosts? latestPosts.map(latestPost => {
+                {latestPosts ? latestPosts.map(latestPost => {
                     return <BlogPost key={latestPost.id} latestPost={latestPost} />
                 }) : ""}
             </div>

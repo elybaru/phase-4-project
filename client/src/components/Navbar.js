@@ -23,7 +23,7 @@ const Navbar = ({ user, setUser }) => {
             <div className='navlinks'>
                 <Link to='/'>Home</Link>
                 <Link to='/create'>Create</Link>
-                <Link to={`/users/${user.id}`}>My Musings</Link>
+                <Link to={`/authors/${user.id}`}>My Musings</Link>
                 <Link to='/latest'>Latest</Link>
                 <Link to='/authors'>Authors</Link>
                 {/* <button onClick={handleLogoutClick}>Logout</button> */}

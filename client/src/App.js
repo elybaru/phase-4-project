@@ -31,22 +31,22 @@ function App() {
 
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
-        if (r.ok) {
-            setUser(null);
-        }
+      if (r.ok) {
+        setUser(null);
+      }
     });
-}
+  }
 
   if (!user) return (
     <div className="wrapper">
-      
+
       <div className="header">
-      <div className="item">
-      <h1 className="logo">Momentary Muse</h1>
-      </div>
-      <div className="item">
-      <button>Placeholder login</button>
-      </div>
+        <div className="item">
+          <h1 className="logo">Momentary Muse</h1>
+        </div>
+        <div className="item">
+          <button>Placeholder login</button>
+        </div>
       </div>
       <Routes>
 
@@ -60,25 +60,25 @@ function App() {
 
   return (
     <div className="wrapper">
-    <div className="header">
-    <div className="item">
-    <h1 className="logo">Momentary Muse</h1>
-    </div>
-    <div className="item">
-    <span className="greeting">Hello, {user.username}</span>
-    <button onClick={handleLogoutClick}>Logout</button>
-    </div>
-    </div>
+      <div className="header">
+        <div className="item">
+          <h1 className="logo">Momentary Muse</h1>
+        </div>
+        <div className="item">
+          <span className="greeting">Hello, {user.username}</span>
+          <button onClick={handleLogoutClick}>Logout</button>
+        </div>
+      </div>
       <Navbar user={user} setUser={setUser} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/latest' element={<Latest />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/authors' element={<Authors />} />
-        <Route path='/authors/:id' element={<Author user={user}/>} />
-        <Route path='/posts/:id' element={<FullBlogPost user={user}/>} />
+        <Route path='/authors/:id' element={<Author user={user} />} />
+        <Route path='/posts/:id' element={<FullBlogPost user={user} />} />
         <Route path='/users/:id' element={<Author user={user} />} />
-        <Route path='/posts/:id/edit' element={<EditPost user={user}/>} />
+        <Route path='/posts/:id/edit' element={<EditPost user={user} />} />
         <Route path="*" element={<Navigate to="/" />} />
 
 

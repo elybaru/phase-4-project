@@ -5,12 +5,18 @@ class LikesController < ApplicationController
 
     # post_likes
 
-    # def index
-    #     # need to get id and type
-    #     # url will contain like or comment route
-    #     likes = Likes.all 
-    #     render json: likes, status: :created
-    # end
+    def index
+        if params[:post_id]
+            post = Post.find(params[:post_id])
+            likes = post.likes
+        elsif params[:comment_id]
+            comment = Comment.find(params[:comment_id])
+            likes = comment.likes
+        else
+            likes = Like.all
+        end
+        render json: likes, status: :created
+    end
 
     def show
         like = Like.find(params[:id])

@@ -50,7 +50,7 @@ const Comment = ({ comment, user, setPost, post }) => {
                 </div>
                 <div>{comment.user.username}</div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
-                <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} /> : ""}
+                <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} setReplyClicked={setReplyClicked} /> : ""}
                 </div>
                 <div>
                     {comment.comments ? comment.comments.map(comment => { <Comment comment={comment} /> }) : null}

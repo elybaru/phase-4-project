@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 
-const CommentForm = ({ comment, setPost, post }) => {
+const CommentForm = ({ comment, setPost, post, setReplyClicked }) => {
     let { id } = useParams()
     const [newComment, setNewComment] = useState("")
 
@@ -24,6 +24,7 @@ const CommentForm = ({ comment, setPost, post }) => {
                 setPost(data)
                 // { ...post, comments_to_display: data.post.comments_to_display })
                 setNewComment("")
+                setReplyClicked(false)
             })
     }
 

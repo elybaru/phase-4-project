@@ -16,6 +16,11 @@ class PostsController < ApplicationController
     render json: post
   end
 
+def latest_posts
+    posts = Post.order(created_at: :desc).limit(10)
+    render json: posts, status: :created
+end
+
 
 def create
     post = current_user.posts.create!(post_params)

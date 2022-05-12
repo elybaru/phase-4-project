@@ -19,8 +19,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-
+    @users = User.where("NOT(id =?)", current_user.id)
     render json: @users
   end
 
