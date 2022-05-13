@@ -216,6 +216,11 @@ h3 {
 
 }
 
+.create-muse {
+    white-space: pre-wrap;
+    word-wrap: break-word;   
+}
+
 .muse {
     border-bottom: 1px solid #212121;
 
@@ -359,4 +364,8 @@ input[type=textarea] {
     display: inline-block;
 
 
+}
+
+.padding-div {
+    padding: 16px;
 }

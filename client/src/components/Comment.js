@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import useLike from "../hooks/useLike"
 import CommentForm from './CommentForm'
 import useAuthor from '../hooks/useAuthor'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faHeart as regularHeart } from '@fortawesome/fontawesome-free-regular';
+// import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+
 
 const Comment = ({ comment, user, setPost, post }) => {
     const [isLiked, like] = useLike("comment", comment, user.id)
@@ -60,6 +64,7 @@ const Comment = ({ comment, user, setPost, post }) => {
                     <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
                 </div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
+                {/* <FontAwesomeIcon icon="fa-solid fa-heart" /> */}
                 <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} setReplyClicked={setReplyClicked} /> : ""}
                 </div>
                 <div>
