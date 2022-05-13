@@ -110,27 +110,32 @@ const FullBlogPost = ({ user }) => {
         <div>
             {post ?
                 <div className="content-wrapper">
-                    <div className="content">
-                        <h2 className="title">{post.title}</h2>
-                        <p> by {post.user.username} </p>
+
+                    <div className="muse-wrapper">
+                        <div className="content">
+                            <h2 className="muse-title">{post.title}</h2>
+                            <p className="byline"> by {post.user.username} </p>
+                        </div>
+                        <div className="muse-text-content">
+                            {post.content}
+                        </div>
+                        <div>
+                            <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
+                            {/* {isLiked ? "UNLIKE" : "LIKE"} */}
+                        </div>
+
+                        <div>
+                            {post.likes.length} likes, {post.comments_to_display.length} comments.
                     </div>
-                    <div className="muse-text-content">
-                        {post.content}
-                    </div>
-                    <div>
-                        <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
-                        {/* {isLiked ? "UNLIKE" : "LIKE"} */}
-                    </div>
-                    <div>
-                        {post.likes.length} likes, {post.comments_to_display.length} comments.
-                    </div>
-                    <div>
+
+                        {/* <div>
                         {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
-                    </div>
-                    <div>
+                    </div> */}
+                        {/* <div>
                         {isAuthor ? <button className="muse-readmore" onClick={handleDeleteClick}>Delete Muse</button> : ""}
+                    </div> */}
                     </div>
-                    <div>
+                    <div className="double-border-nav">
                     </div>
                     <div className="main-comment-wrapper">
                         <form className="main-comment-form" onSubmit={handleSubmit}>

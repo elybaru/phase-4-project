@@ -123,6 +123,7 @@ h1 {
     font-size: 24px;
     text-transform: uppercase;
     margin: 32px 0px 32px 0px;
+    text-align: center;
 
 }
 
@@ -133,6 +134,11 @@ h2, h3, h4, h5, h6, button {
 h2 {
     font-size: 38px;
     margin: 32px 0px 8px 0px;
+}
+
+h3 {
+    font-size: 30px;
+    margin: 24px 0px 8px 0px;
 }
 
 .navlinks a {
@@ -166,6 +172,10 @@ h2 {
 
 }
 
+.byline {
+    font-size: 12px;
+}
+
 .header {
     display: flex;
     flex-wrap: nowrap;
@@ -184,11 +194,14 @@ h2 {
 
 .wrapper {
     margin: 0px auto;
-    text-align: left;
+    text-align: center;
 }
 
 .content-wrapper {
-
+   max-width: 400px;
+   text-align: left;
+   margin: 0px auto;
+    
 }
 
 .logo {
@@ -230,6 +243,30 @@ h2 {
     line-height: 1.5px;
 
 }
+.authors-div a {
+    padding: 0px 8px;
+    text-decoration: none;
+    transition: color 250ms ease-in-out;
+    size: 16px;
+    display: block;
+    margin: 20px;
+  
+}
+
+.authors-div {
+    text-align: left;
+}
+
+.authors-div a:visited {
+    color: #212121;
+
+}
+
+.authors-div a:hover {
+    color: #9aaa8d;
+
+}
+
 
 .muse-readmore {
     margin: 16px 0px;
@@ -237,18 +274,32 @@ h2 {
 }
 
 input[type=text],
+input[type=password],
 input[type=textarea] {
+    padding: 8px;
+    width: 100%;
     border: none;
+    margin: 16px 0px;
     background-color: #f3f3f3;
 }
 
+
 .muse-text-content {
+    margin: 16px 0px;
+
+}
+
+.muse-wrapper {
+    border-bottom: 1px solid #212121;
+    padding-bottom: 16px;
 
 }
 
 .main-comment-wrapper {
 
 }
+
+
 
 .main-comment-form {
 
@@ -263,21 +314,49 @@ input[type=textarea] {
 }
 
 .individual-comment-wrapper {
+    margin: 8px 0px;
+    border-bottom: 1px solid #cfcfcf;
+    padding: 8px 0px;
+    font-size: 12px;
 
 }
 
 .individual-comment-content {
+    font-size: 16px;
+    margin: 8px 0px;
+    padding: 8px 0px;
 
 }
 
 .individual-comment-reply-button {
+    display: inline-block;
+    margin: 8px 0px;
+}
+
+.nested-comment-wrapper {
+    border-left: 1px solid #cfcfcf;
+    margin-left: 32px;
+    padding-left: 16px;
 
 }
 
 .individual-comment-likes-wrapper {
+    margin: 8px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    
+
+}
+.individual-comment-likes-wrapper p {
+   display: inline-block;
+   
 
 }
 
-.individual-comment-likes-button {
+.individual-comment-like-button {
+    display: inline-block;
+
 
 }

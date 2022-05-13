@@ -37,7 +37,7 @@ const Author = ({ user }) => {
     return (
         <div className="content-wrapper">
 
-            {posts ? <h2>{posts[0].user.username}</h2> : null}
+            {posts ? <h1>{posts[0].user.username}</h1> : null}
 
             <div>{posts ? postsDisplay : ""}</div>
 

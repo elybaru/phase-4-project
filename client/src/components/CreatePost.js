@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePost = () => {
     let navigate = useNavigate();
@@ -30,7 +30,7 @@ const CreatePost = () => {
             .then(data => {
                 console.log(data)
                 setFormData(defaultFormData)
-                navigate(`/posts/${data.id}`) 
+                navigate(`/posts/${data.id}`)
             })
     }
 

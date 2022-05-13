@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import useLike from "../hooks/useLike"
 import CommentForm from './CommentForm'
+import useAuthor from '../hooks/useAuthor'
 
 const Comment = ({ comment, user, setPost, post }) => {
     const [isLiked, like] = useLike("comment", comment, user.id)
     const [replyClicked, setReplyClicked] = useState(false)
+    const [isAuthor, checkIfAuthor] = useAuthor()
 
     // receive comment info, including likes, from props, from fullblogpost
     // check the current user if they can edit
@@ -41,6 +43,10 @@ const Comment = ({ comment, user, setPost, post }) => {
     //         .then(data => console.log(data))
     // }
 
+    const handleEditCommentClick = (e) => {
+        console.log(comment)
+    }
+
 
     return (
         <div className="individual-comment-wrapper">
@@ -49,16 +55,20 @@ const Comment = ({ comment, user, setPost, post }) => {
                     {comment.content}
                 </div>
                 <div>{comment.user.username}</div>
+                <div className="individual-comment-likes-wrapper">
+                    <p>{comment.likes ? comment.likes.length : null} likes</p>
+                    <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
+                </div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
                 <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} setReplyClicked={setReplyClicked} /> : ""}
                 </div>
                 <div>
+                    {isAuthor ? <button className="individual-comment-reply-button" onClick={handleEditCommentClick}>Edit</button> : null}
+                </div>
+                <div>
                     {comment.comments ? comment.comments.map(comment => { <Comment comment={comment} /> }) : null}
                 </div>
-                <div className="individual-comment-likes-wrapper">
-                    <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
-                    <p>{comment.likes ? comment.likes.length : null} likes</p>
-                </div>
+
             </div>
 
 

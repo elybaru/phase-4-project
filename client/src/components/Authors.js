@@ -15,11 +15,14 @@ const Authors = () => {
     }, []);
     console.log(authors)
     return (
-        <div>
+        <div className="content-wrapper">
             <div>
+                <h1>Authors</h1>
+                <div className="authors-div">
                 {authors ? authors.map(author => {
                     return <Link key={author.id} to={`/authors/${author.id}`}>{author.username}</Link>
                 }) : "Loading..."}
+                </div>
             </div>
 
         </div>
