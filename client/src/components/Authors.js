@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 
-const Authors = () => {
+const Authors = ({ setCurrentAuthor }) => {
     const [authors, setAuthors] = useState([])
 
     useEffect(() => {
@@ -14,14 +14,20 @@ const Authors = () => {
         });
     }, []);
     console.log(authors)
+
+    const handleCurrentAuthor = (author) => {
+        setCurrentAuthor(author)
+    }
+    // key={author.id} onClick={e=> handleCurrentAuthor(author)}
+
     return (
         <div className="content-wrapper">
             <div>
                 <h1>Authors</h1>
                 <div className="authors-div">
-                {authors ? authors.map(author => {
-                    return <Link key={author.id} to={`/authors/${author.id}`}>{author.username}</Link>
-                }) : "Loading..."}
+                    {authors ? authors.map(author => {
+                        return <Link to={`/authors/${author.id}`}>{author.username}</Link>
+                    }) : "Loading..."}
                 </div>
             </div>
 

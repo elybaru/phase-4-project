@@ -16,7 +16,9 @@ import EditPost from './components/EditPost';
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log(user)
+  const [currentAuthor, setCurrentAuthor] = useState(null)
+  // console.log(user)
+  console.log({ user, currentAuthor })
 
   let navigate = useNavigate();
 
@@ -74,8 +76,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/latest' element={<Latest />} />
         <Route path='/create' element={<CreatePost />} />
-        <Route path='/authors' element={<Authors />} />
-        <Route path='/authors/:id' element={<Author user={user} />} />
+        <Route path='/authors' element={<Authors setCurrentAuthor={setCurrentAuthor} />} />
+        <Route path='/authors/:id' element={<Author currentAuthor={currentAuthor} user={user} />} />
         <Route path='/posts/:id' element={<FullBlogPost user={user} />} />
         <Route path='/users/:id' element={<Author user={user} />} />
         <Route path='/posts/:id/edit' element={<EditPost user={user} />} />
