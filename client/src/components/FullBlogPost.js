@@ -3,13 +3,17 @@ import { useParams, Link } from 'react-router-dom'
 import Comment from './Comment';
 import useAuthor from '../hooks/useAuthor.js';
 import useLike from '../hooks/useLike';
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+
+
 
 const FullBlogPost = ({ user }) => {
     let { id } = useParams()
     const [newComment, setNewComment] = useState("")
     const [isAuthor, checkIfAuthor] = useAuthor()
     const [post, setPost] = useState(null)
-    const [isLiked, like] = useLike("post", post, user.id)
+
     // const [handleLikeClick, likes, currentUserPostLike, currentUserLikeOnPost, handleUnlikeClick, setCurrentUserPostLike] = useLike("post", id)
     const [likeOnBlog, setLikeOnBlog] = useState(false)
 
@@ -23,7 +27,9 @@ const FullBlogPost = ({ user }) => {
                     r.json().then((data) => {
                         setPost(data);
 
-                    });
+
+                    })
+                    // .then(_ => checkIfAuthor(post.user.id, user.id));
                 }
             });
         }
@@ -33,6 +39,34 @@ const FullBlogPost = ({ user }) => {
         }
 
     }, [post]);
+
+    const handleUpdateLike = (like, id) => {
+        const updatedPost = { ...post, likes: [...post.likes, like] }
+        setPost(updatedPost)
+    }
+
+    const handleDeleteLike = (likeId, id) => {
+        const updatedPost = { ...post, likes: post.likes.filter(like => like.id != likeId) }
+        setPost(updatedPost)
+
+    }
+
+    const handleUpdateCommentLike = (like, id) => {
+        const comment = post.comments.find(c => c.id == id)
+        const updatedComment = {...comment, likes: [...comment.likes, like]}
+        const updatedPost = { ...post, comments: post.comments.map(c => c.id == id ? updatedComment : c) }
+        setPost(updatedPost)
+    }
+
+    const handleDeleteCommentLike = (likeId, id) => {
+        const comment = post.comments.find(c => c.id == id)
+        const updatedComment = {...comment, likes: comment.likes.filter(l => l != likeId)}
+        const updatedPost = { ...post, comments: post.comments.map(c => c.id == id ? updatedComment : c) }
+        
+        setPost(updatedPost)
+
+    }
+    const [isLiked, like] = useLike("post", post, user.id, handleUpdateLike, handleDeleteLike)
 
     console.log("Am I the author of this post?" + isAuthor)
 
@@ -86,7 +120,8 @@ const FullBlogPost = ({ user }) => {
 
 
 
-    console.log(post)
+    console.log({ post, user })
+
 
     const handleEditPost = (e) => {
         console.log({
@@ -99,10 +134,7 @@ const FullBlogPost = ({ user }) => {
         return <button onClick={handleEditPost}>Edit</button>
     }
 
-    const handleDeleteClick = (e, id) => {
-        e.preventDefault()
-        console.log(id)
-    }
+
 
     // Need to separate the comments into a different component, map them from this component 
 
@@ -120,7 +152,7 @@ const FullBlogPost = ({ user }) => {
                             {post.content}
                         </div>
                         <div>
-                            <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? "Unlike" : "Like"}</button>
+                            <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? <FaHeart class="fa-sm" /> : <FaRegHeart />}</button>
                             {/* {isLiked ? "UNLIKE" : "LIKE"} */}
                         </div>
 
@@ -128,12 +160,10 @@ const FullBlogPost = ({ user }) => {
                             {post.likes.length} likes, {post.comments_to_display.length} comments.
                     </div>
 
-                        {/* <div>
-                        {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
-                    </div> */}
-                        {/* <div>
-                        {isAuthor ? <button className="muse-readmore" onClick={handleDeleteClick}>Delete Muse</button> : ""}
-                    </div> */}
+                        <div>
+                            {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
+                        </div>
+
                     </div>
                     <div className="double-border-nav">
                     </div>
@@ -146,7 +176,7 @@ const FullBlogPost = ({ user }) => {
                     </div>
                     <div className="all-comments-wrapper">{post.comments ? post.comments.map(comment => {
 
-                        return <Comment comment={comment} user={user} setPost={setPost} post={post} />
+                        return <Comment comment={comment} user={user} setPost={setPost} post={post} handleUpdateLike={handleUpdateCommentLike} handleDeleteLike={handleDeleteCommentLike}/>
                     }) : ""}</div>
                 </div>
 

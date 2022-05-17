@@ -24,9 +24,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(session[:user_id])
+    user = User.find(params[:id])
     render json: user
   end 
+
+  def auth
+    user = User.find(session[:user_id])
+    render json: user
+  end
 
   # # GET /users/1
   # def show

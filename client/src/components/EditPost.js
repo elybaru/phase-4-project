@@ -20,6 +20,19 @@ const EditPost = ({ user }) => {
 
     console.log(post)
 
+    const handleDeleteClick = (e) => {
+        e.preventDefault()
+        console.log(post.id)
+        fetch(`/posts/${post.id}`, {
+            method: 'DELETE'
+        })
+            .then((r) => {
+                if (r.ok) {
+                    navigate(`/authors/${user.id}`)
+                }
+            })
+    }
+
     const handleUpdateSubmit = (e) => {
         e.preventDefault()
         fetch(`/posts/${id}`, {
@@ -32,7 +45,8 @@ const EditPost = ({ user }) => {
             .then(r => r.json())
             .then(data => {
                 navigate(`/posts/${id}`)
-                console.log(data)})
+                console.log(data)
+            })
     }
 
     return (
@@ -45,10 +59,13 @@ const EditPost = ({ user }) => {
                 </div>
                 <div>
                     <h4>Body</h4>
-                    <input type="textarea" name="content" className="large-text-input" cols={40} rows={40} value={post.content} onChange={handleFormChange} />
+                    <textarea name="content" className="large-text-input" cols={40} rows={40} value={post.content} onChange={handleFormChange} />
                 </div>
                 <input type='submit' value='Submit' />
             </form>
+            <div>
+                <button className="muse-readmore" onClick={handleDeleteClick}>Delete Muse</button>
+            </div>
 
         </div> : ""
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const useLike = (likeableType, likeable, userId) => {
+const useLike = (likeableType, likeable, userId, handleUpdateLike, handleDeleteLike) => {
     const [liked, setLiked] = useState(undefined)
     const [likeId, setLikeId] = useState(null)
 
@@ -26,13 +26,19 @@ const useLike = (likeableType, likeable, userId) => {
                 },
                 body: JSON.stringify({ likeable_id: likeable.id, likeable_type: likeableType })
             }).then(resp => resp.json())
-                .then(data => setLikeId(data.id))
+                .then(data => {
+                    setLikeId(data.id)
+                    handleUpdateLike(data, likeable.id)
+                })
                 .then(_ => setLiked(true))
         } else {
             fetch(`/likes/${likeId}`, {
                 method: 'DELETE'
             })
-                .then(_ => setLiked(false))
+                .then(_ => {
+                    setLiked(false)
+                    handleDeleteLike(likeId, likeable.id)
+                })
             // fetch request to an endpoint to delete a reference to a like
             // and then setLiked(false) afterwards
         }

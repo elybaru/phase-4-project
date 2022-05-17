@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import BlogPost from './BlogPost';
-// import useAuthor from '../hooks/useAuthor.js';
+import useAuthor from '../hooks/useAuthor.js';
 
 const Author = ({ user }) => {
     let { id } = useParams()
     const [currentAuthor, setCurrentAuthor] = useState()
-    // const [isAuthor, checkIfAuthor] = useAuthor()
-    const [isAuthor, setIsAuthor] = useState(false)
+    const [isAuthor, checkIfAuthor] = useAuthor()
+    // const [isAuthor, setIsAuthor] = useState(false)
     // console.log("in Author", isAuthor)
     // console.log("In Author, current author is: ", currentAuthor)
 
-    const checkIfAuthor = (id, userId) => {
-        if (parseInt(id) === parseInt(userId))
-            setIsAuthor(true)
-    }
+    // const checkIfAuthor = (id, userId) => {
+    //     if (parseInt(id) === parseInt(userId))
+    //         setIsAuthor(true)
+    // }
 
     useEffect(() => {
         fetch(`/users/${id}`).then((r) => {
@@ -47,6 +47,8 @@ const Author = ({ user }) => {
 
     // }, [id]);
 
+
+
     console.log(currentAuthor)
     // console.log(user)
     // console.log(id)
@@ -55,22 +57,45 @@ const Author = ({ user }) => {
     // console.log(isAuthor)
     console.log("In author: ", { id, userId: user.id, isAuthor })
 
-    const postsDisplay = currentAuthor ? currentAuthor.posts.map(post => {
+    const postsDisplay = isAuthor ? currentAuthor.posts.map(post => {
+        return <div key={post.id}>
+            <h2><Link to={`/posts/${post.id}`}>{post.title} </Link></h2>
+            <div>{post.short_content}</div>
+            <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button>
+        </div>
+    }) : currentAuthor && currentAuthor.posts.map(post => {
         return <div key={post.id}>
             <h2>{post.title}</h2>
             <div>{post.short_content}</div>
             <button className="muse-readmore"><Link to={`/posts/${post.id}`}> Read more </Link></button>
         </div>
-    }) : null
+    })
 
+    const noUserPosts = () => isAuthor ? <p>You haven't created any posts yet. Click the link above to create a new post.</p> : <p>{currentAuthor.username} hasn't created any posts yet.</p>
+    
 
+    // const postsDisplay = currentAuthor ? currentAuthor.posts.map(post => {
+    //     return <div key={post.id}>
+    //         <h2>{post.title}</h2>
+    //         <div>{post.short_content}</div>
+    //         <button className="muse-readmore"><Link to={`/posts/${post.id}`}> Read more </Link></button>
+    //     </div>
+    // }) : null
 
+    if (postsDisplay && postsDisplay.length == 0) {
+        return (
+            <div className="content-wrapper">
+                {noUserPosts()}
+            </div>
+
+        )
+    }
     return (
         <div className="content-wrapper">
 
-            {currentAuthor ? <h1>{currentAuthor.username}</h1> : null}
+            {/* {isAuthor ? <h1>My musings</h1>  : <h1>{currentAuthor.username}</h1>} */}
 
-            <div>{currentAuthor ? postsDisplay : ""}</div>
+            <div>{currentAuthor ? postsDisplay : null}</div>
 
         </div>
     )

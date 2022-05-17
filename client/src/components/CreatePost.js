@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+// import { RichTextEditor } from '@mantine/rte';
 
 const CreatePost = () => {
     let navigate = useNavigate();
