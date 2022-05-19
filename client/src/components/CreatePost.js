@@ -49,7 +49,7 @@ const CreatePost = () => {
                 </div>
                 <div>
                     <h4>Body</h4>
-                    <textarea name="content" className="create-muse" value={formData.content} onChange={handleFormChange} />
+                    <textarea name="content" className="create-muse" cols={40} rows={40} value={formData.content} onChange={handleFormChange} />
                 </div>
                 <input type='submit' value='Submit' />
             </form>

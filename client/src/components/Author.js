@@ -59,7 +59,7 @@ const Author = ({ user }) => {
 
     const postsDisplay = isAuthor ? currentAuthor.posts.map(post => {
         return <div key={post.id}>
-            <h2><Link to={`/posts/${post.id}`}>{post.title} </Link></h2>
+            <h2 className="muse-user-links"><Link to={`/posts/${post.id}`}>{post.title} </Link></h2>
             <div>{post.short_content}</div>
             <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button>
         </div>
@@ -72,7 +72,9 @@ const Author = ({ user }) => {
     })
 
     const noUserPosts = () => isAuthor ? <p>You haven't created any posts yet. Click the link above to create a new post.</p> : <p>{currentAuthor.username} hasn't created any posts yet.</p>
-    
+
+    const userPostHeading = () => isAuthor ? <h1>My musings</h1> : <h1>{currentAuthor.username}</h1>
+
 
     // const postsDisplay = currentAuthor ? currentAuthor.posts.map(post => {
     //     return <div key={post.id}>
@@ -85,7 +87,7 @@ const Author = ({ user }) => {
     if (postsDisplay && postsDisplay.length == 0) {
         return (
             <div className="content-wrapper">
-                {noUserPosts()}
+                <div className="no-posts-div">{noUserPosts()}</div>
             </div>
 
         )
@@ -93,7 +95,7 @@ const Author = ({ user }) => {
     return (
         <div className="content-wrapper">
 
-            {/* {isAuthor ? <h1>My musings</h1>  : <h1>{currentAuthor.username}</h1>} */}
+            <div>{currentAuthor ? userPostHeading : null}</div>
 
             <div>{currentAuthor ? postsDisplay : null}</div>
 

@@ -369,3 +369,31 @@ input[type=textarea] {
 .padding-div {
     padding: 16px;
 }
+
+.no-posts-div {
+    padding: 16px;
+    text-align: center;
+
+}
+
+.muse-user-links {
+    text-decoration: none;
+    transition: color 250ms ease-in-out;
+
+}
+
+.muse-user-links a {
+    text-decoration: none;
+}
+
+.muse-user-links a:visited {
+    color: #212121;
+    text-decoration: none;
+
+}
+
+.muse-user-links a:hover {
+    color: #9aaa8d;
+    text-decoration: none;
+
+}

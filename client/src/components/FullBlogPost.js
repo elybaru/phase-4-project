@@ -53,22 +53,27 @@ const FullBlogPost = ({ user }) => {
 
     const handleUpdateCommentLike = (like, id) => {
         const comment = post.comments.find(c => c.id == id)
-        const updatedComment = {...comment, likes: [...comment.likes, like]}
+        const updatedComment = { ...comment, likes: [...comment.likes, like] }
         const updatedPost = { ...post, comments: post.comments.map(c => c.id == id ? updatedComment : c) }
         setPost(updatedPost)
     }
 
     const handleDeleteCommentLike = (likeId, id) => {
+
         const comment = post.comments.find(c => c.id == id)
-        const updatedComment = {...comment, likes: comment.likes.filter(l => l != likeId)}
+        debugger
+        const updatedComment = { ...comment, likes: comment.likes.filter(l => l != likeId) }
         const updatedPost = { ...post, comments: post.comments.map(c => c.id == id ? updatedComment : c) }
-        
+
+
         setPost(updatedPost)
 
     }
     const [isLiked, like] = useLike("post", post, user.id, handleUpdateLike, handleDeleteLike)
 
-    console.log("Am I the author of this post?" + isAuthor)
+    // console.log("Am I the author of this post?" + isAuthor)
+    // console.log("I am the like in fullblogpost" + like)
+
 
     // const displayUnlikePost = () => {
     //     return (
@@ -120,7 +125,7 @@ const FullBlogPost = ({ user }) => {
 
 
 
-    console.log({ post, user })
+    // console.log({ post, user })
 
 
     const handleEditPost = (e) => {
@@ -176,7 +181,7 @@ const FullBlogPost = ({ user }) => {
                     </div>
                     <div className="all-comments-wrapper">{post.comments ? post.comments.map(comment => {
 
-                        return <Comment comment={comment} user={user} setPost={setPost} post={post} handleUpdateLike={handleUpdateCommentLike} handleDeleteLike={handleDeleteCommentLike}/>
+                        return <Comment comment={comment} key={comment.id} user={user} setPost={setPost} post={post} handleUpdateLike={handleUpdateCommentLike} handleDeleteLike={handleDeleteCommentLike} />
                     }) : ""}</div>
                 </div>
 

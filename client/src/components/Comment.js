@@ -32,7 +32,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
         checkIfAuthor(post.user.id, user.id)
     }, [])
 
-    console.log("In comment component: ", { user, post })
+    // console.log("In comment component: ", { user, post })
 
     const handleReplyClick = (e) => {
         e.preventDefault()
@@ -64,15 +64,15 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
     }
 
     const handleDeleteCommentLike = (likeId, id) => {
-        const foundComment = comment.comments.find(c => c.id == id)
+        const foundComment = post.comments.find(c => c.id == id)
         const updatedComment = { ...foundComment, likes: foundComment.likes.filter(l => l != likeId) }
         const updatedOwnerComment = { ...comment, comments: comment.comments.map(c => c.id == id ? updatedComment : c) }
         const updatedPost = { ...post, comments: post.comments.map(c => c.id == updatedOwnerComment.id ? updatedOwnerComment : c) }
-        debugger
         setPost(updatedPost)
     }
 
-    const [isLiked, like] = useLike("comment", comment, user.id, handleUpdateLike, handleDeleteLike)
+    const [isLiked, like] = useLike("comment", comment, user.id, handleUpdateLike, handleDeleteCommentLike)
+    // console.log("I am the like in the comment component" + like)
 
 
     // console.log(replyClicked)
@@ -159,7 +159,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
                 <div>{comment.user.username}</div>
                 <div className="individual-comment-likes-wrapper">
                     <p>{comment.likes ? comment.likes.length : null} likes</p>
-                    <button className="individual-comment-like-button" onClick={_ => like()}>{isLiked ? <FaHeart /> : <FaRegHeart />}</button>
+                    <button className="individual-comment-like-button" onClick={like}>{isLiked ? <FaHeart /> : <FaRegHeart />}</button>
                 </div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
 

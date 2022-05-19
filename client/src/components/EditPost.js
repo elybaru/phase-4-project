@@ -45,7 +45,6 @@ const EditPost = ({ user }) => {
             .then(r => r.json())
             .then(data => {
                 navigate(`/posts/${id}`)
-                console.log(data)
             })
     }
 
