@@ -125,7 +125,7 @@ const FullBlogPost = ({ user }) => {
 
 
 
-    // console.log({ post, user })
+    console.log({ post, user })
 
 
     const handleEditPost = (e) => {
@@ -162,12 +162,12 @@ const FullBlogPost = ({ user }) => {
                         </div>
 
                         <div>
-                            {post.likes.length} likes, {post.comments_to_display.length} comments.
-                    </div>
-
-                        <div>
-                            {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
+                            {post.likes.length == 1 ? `${post.likes.length} like`: `${post.likes.length} likes`} , {post.comments.length == 1 ? `${post.comments.length} comment`: `${post.comments.length} comments` }.
                         </div>
+
+                        {/* <div>
+                            {isAuthor ? <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button> : ""}
+                        </div> */}
 
                     </div>
                     <div className="double-border-nav">
