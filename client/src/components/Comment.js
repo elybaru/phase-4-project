@@ -72,7 +72,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
     }
 
     const [isLiked, like] = useLike("comment", comment, user.id, handleUpdateLike, handleDeleteCommentLike)
-    // console.log("I am the like in the comment component" + like)
+    // cons ole.log("I am the like in the comment component" + like)
 
 
     // console.log(replyClicked)

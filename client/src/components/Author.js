@@ -61,7 +61,7 @@ const Author = ({ user }) => {
         return <div key={post.id}>
             <h2 className="muse-user-links"><Link to={`/posts/${post.id}`}>{post.title} </Link></h2>
             <div>{post.short_content}</div>
-            <button className="muse-readmore"><Link to={`/posts/${id}/edit`}>Edit</Link></button>
+            <button className="muse-readmore"><Link to={`/posts/${post.id}/edit`}>Edit</Link></button>
         </div>
     }) : currentAuthor && currentAuthor.posts.map(post => {
         return <div key={post.id}>
