@@ -32,13 +32,16 @@ const useLike = (likeableType, likeable, userId, handleUpdateLike, handleDeleteL
                 })
                 .then(_ => setLiked(true))
         } else {
-            
+
             fetch(`/likes/${likeId}`, {
                 method: 'DELETE'
             })
-                .then(_ => {
+                .then(r => r.json())
+                .then(data => {
                     setLiked(false)
-                    handleDeleteLike(likeId, likeable.id)
+                    // handleDeleteLike(likeId, likeable.id)
+                    handleDeleteLike(data)
+
                 })
             // fetch request to an endpoint to delete a reference to a like
             // and then setLiked(false) afterwards

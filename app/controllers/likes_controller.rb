@@ -44,6 +44,13 @@ class LikesController < ApplicationController
     def destroy
         like = Like.find(params[:id])
         like.destroy
+        if like.likeable_type == "Comment" 
+            render json: like.likeable.post
+        else
+            render json: like.likeable
+        end
+        
+        
     end
 
     # this action needs a unique name in this controller, and if so a special custom route in routes.rb

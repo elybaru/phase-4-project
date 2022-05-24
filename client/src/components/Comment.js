@@ -16,6 +16,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
     const [isAuthor, checkIfAuthor] = useAuthor()
     const [toggleEditCommentClicked, setToggleEditCommentClicked] = useState(false)
     const [editComment, setEditComment] = useState(null)
+    // const [commentInfo, setCommentInfo] = useState(comment)
 
     // receive comment info, including likes, from props, from fullblogpost
     // check the current user if they can edit
@@ -29,10 +30,11 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
     // 
 
     useEffect(() => {
-        checkIfAuthor(post.user.id, user.id)
+        checkIfAuthor(comment.user.id, user.id)
     }, [])
 
     // console.log("In comment component: ", { user, post })
+    console.log("In comment component, isAuthor? " + isAuthor)
 
     const handleReplyClick = (e) => {
         e.preventDefault()
@@ -63,13 +65,25 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
         setPost(updatedPost)
     }
 
-    const handleDeleteCommentLike = (likeId, id) => {
-        const foundComment = post.comments.find(c => c.id == id)
-        const updatedComment = { ...foundComment, likes: foundComment.likes.filter(l => l != likeId) }
-        const updatedOwnerComment = { ...comment, comments: comment.comments.map(c => c.id == id ? updatedComment : c) }
-        const updatedPost = { ...post, comments: post.comments.map(c => c.id == updatedOwnerComment.id ? updatedOwnerComment : c) }
-        setPost(updatedPost)
+    const handleDeleteCommentLike = (data) => {
+        // const foundComment = post.comments.find(c => c.id == id)
+
+        // console.log("This is the likeID ", likeId)
+        // const updatedComment = { ...foundComment, likes: foundComment.likes.filter(l => l.id != likeId) }
+
+        // const updatedOwnerComment = { ...comment, comments: comment.comments.map(c => c.id == id ? updatedComment : c) }
+        // console.log("This is the updatedComment ", updatedOwnerComment)
+        // console.log("This is the comment", comment)
+
+        // const updatedPost = { ...post, comments: post.comments.map(c => c.id == updatedOwnerComment.id ? updatedOwnerComment : c) }
+
+
+        // setPost(updatedPost)
+        console.log(data)
+        setPost(data)
     }
+
+
 
     const [isLiked, like] = useLike("comment", comment, user.id, handleUpdateLike, handleDeleteCommentLike)
     // cons ole.log("I am the like in the comment component" + like)
@@ -120,7 +134,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
 
     const handleEditCommentSubmit = (e) => {
         e.preventDefault()
-        fetch(`/posts/${post.id}/comment/${comment.id}`, {
+        fetch(`/posts/${post.id}/comments/${comment.id}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
@@ -158,7 +172,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
                 </div>
                 <div>{comment.user.username}</div>
                 <div className="individual-comment-likes-wrapper">
-                    <p>{comment.likes ? comment.likes.length : null} likes</p>
+                    <p>{comment.likes.length == 1 ? `${comment.likes.length} like` : `${comment.likes.length} likes`}</p>
                     <button className="individual-comment-like-button" onClick={like}>{isLiked ? <FaHeart /> : <FaRegHeart />}</button>
                 </div>
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>

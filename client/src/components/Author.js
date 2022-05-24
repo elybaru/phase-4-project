@@ -99,6 +99,11 @@ const Author = ({ user }) => {
 
             <div>{currentAuthor ? postsDisplay : null}</div>
 
+            <div className="padding-div">
+                <p>If you wish to delete your account, click the button below.</p>
+                <button className="muse-readmore">Delete Account</button>
+            </div>
+
         </div>
     )
 }

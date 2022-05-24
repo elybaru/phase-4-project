@@ -45,9 +45,10 @@ const FullBlogPost = ({ user }) => {
         setPost(updatedPost)
     }
 
-    const handleDeleteLike = (likeId, id) => {
-        const updatedPost = { ...post, likes: post.likes.filter(like => like.id != likeId) }
-        setPost(updatedPost)
+    const handleDeleteLike = (data) => {
+        // const updatedPost = { ...post, likes: post.likes.filter(like => like.id != likeId) }
+        console.log(data)
+        setPost(data)
 
     }
 
@@ -58,15 +59,16 @@ const FullBlogPost = ({ user }) => {
         setPost(updatedPost)
     }
 
-    const handleDeleteCommentLike = (likeId, id) => {
+    const handleDeleteCommentLike = (data) => {
 
-        const comment = post.comments.find(c => c.id == id)
-        debugger
-        const updatedComment = { ...comment, likes: comment.likes.filter(l => l != likeId) }
-        const updatedPost = { ...post, comments: post.comments.map(c => c.id == id ? updatedComment : c) }
+        // const comment = post.comments.find(c => c.id == id)
+        // debugger
+        // const updatedComment = { ...comment, likes: comment.likes.filter(l => l != likeId) }
+        // const updatedPost = { ...post, comments: post.comments.map(c => c.id == id ? updatedComment : c) }
+        console.log(data)
 
 
-        setPost(updatedPost)
+        setPost(data)
 
     }
     const [isLiked, like] = useLike("post", post, user.id, handleUpdateLike, handleDeleteLike)
@@ -162,7 +164,7 @@ const FullBlogPost = ({ user }) => {
                         </div>
 
                         <div>
-                            {post.likes.length == 1 ? `${post.likes.length} like`: `${post.likes.length} likes`} , {post.comments.length == 1 ? `${post.comments.length} comment`: `${post.comments.length} comments` }.
+                            {post.likes.length == 1 ? `${post.likes.length} like` : `${post.likes.length} likes`} , {post.comments.length == 1 ? `${post.comments.length} comment` : `${post.comments.length} comments`}.
                         </div>
 
                         {/* <div>
