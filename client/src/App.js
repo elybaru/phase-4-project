@@ -1,6 +1,6 @@
 import './App.css';
 import './styles.css'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate, useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -14,11 +14,14 @@ import FullBlogPost from './components/FullBlogPost';
 import CurrentUserPosts from './components/CurrentUserPosts'
 import EditPost from './components/EditPost';
 
+
 function App() {
   const [user, setUser] = useState(null);
   const [currentAuthor, setCurrentAuthor] = useState(null)
   // console.log(user)
   console.log({ user, currentAuthor })
+  let location = useLocation()
+  console.log(location)
 
   let navigate = useNavigate();
 
@@ -40,18 +43,18 @@ function App() {
   }
 
   if (!user) return (
-    <div className="wrapper">
 
+    <div className="wrapper">
       <div className="header">
         <div className="item">
           <h1 className="logo">Momentary Muse</h1>
         </div>
         <div className="item">
-          <button>Placeholder login</button>
+          {location.pathname === '/signup' ? <Link to='/login'>Login</Link> : <Link to='/signup'>Signup</Link>}
         </div>
       </div>
-      <Routes>
 
+      <Routes>
         <Route path='/' element={<Login setUser={setUser} />}>
         </Route>
         <Route path='/signup' element={<Signup setUser={setUser} />}>
@@ -77,7 +80,7 @@ function App() {
         <Route path='/latest' element={<Latest />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/authors' element={<Authors setCurrentAuthor={setCurrentAuthor} />} />
-        <Route path='/authors/:id' element={<Author currentAuthor={currentAuthor} user={user} handleLogoutClick={handleLogoutClick} setUser={setUser}/>} />
+        <Route path='/authors/:id' element={<Author currentAuthor={currentAuthor} user={user} handleLogoutClick={handleLogoutClick} setUser={setUser} />} />
         <Route path='/posts/:id' element={<FullBlogPost user={user} />} />
         <Route path='/users/:id' element={<Author user={user} />} />
         <Route path='/posts/:id/edit' element={<EditPost user={user} />} />
