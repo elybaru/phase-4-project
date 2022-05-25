@@ -61,6 +61,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    session.delete :user_id
   end
 
   private

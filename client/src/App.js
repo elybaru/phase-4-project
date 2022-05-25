@@ -77,7 +77,7 @@ function App() {
         <Route path='/latest' element={<Latest />} />
         <Route path='/create' element={<CreatePost />} />
         <Route path='/authors' element={<Authors setCurrentAuthor={setCurrentAuthor} />} />
-        <Route path='/authors/:id' element={<Author currentAuthor={currentAuthor} user={user} />} />
+        <Route path='/authors/:id' element={<Author currentAuthor={currentAuthor} user={user} handleLogoutClick={handleLogoutClick} setUser={setUser}/>} />
         <Route path='/posts/:id' element={<FullBlogPost user={user} />} />
         <Route path='/users/:id' element={<Author user={user} />} />
         <Route path='/posts/:id/edit' element={<EditPost user={user} />} />

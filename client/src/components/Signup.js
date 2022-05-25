@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = ({setUser}) => {
     const defaultFormData = {
         username: '',
         password: ''
     }
+    let navigate = useNavigate()
 
     const [formData, setFormData] = useState(defaultFormData)
 
@@ -22,7 +24,11 @@ const Signup = () => {
             body: JSON.stringify(formData)
         })
             .then(r => r.json())
-            .then(data => { setFormData(defaultFormData) })
+            .then(data => {
+                setFormData(defaultFormData)
+                setUser(data)
+                navigate('/')
+            })
     }
 
     return (

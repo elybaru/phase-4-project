@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import BlogPost from './BlogPost';
 import useAuthor from '../hooks/useAuthor.js';
 
-const Author = ({ user }) => {
+const Author = ({ user, handleLogoutClick, setUser }) => {
     let { id } = useParams()
+    let navigate = useNavigate()
     const [currentAuthor, setCurrentAuthor] = useState()
     const [isAuthor, checkIfAuthor] = useAuthor()
     // const [isAuthor, setIsAuthor] = useState(false)
@@ -75,6 +76,18 @@ const Author = ({ user }) => {
 
     const userPostHeading = () => isAuthor ? <h1>My musings</h1> : <h1>{currentAuthor.username}</h1>
 
+    const handleDeleteAccountClick = (e) => {
+        e.preventDefault()
+        fetch(`/users/${id}`, {
+            method: 'DELETE'
+        }
+        )
+            .then(_ => {
+                setUser(null)
+                navigate('/signup')
+            })
+    }
+
 
     // const postsDisplay = currentAuthor ? currentAuthor.posts.map(post => {
     //     return <div key={post.id}>
@@ -86,8 +99,14 @@ const Author = ({ user }) => {
 
     if (postsDisplay && postsDisplay.length == 0) {
         return (
-            <div className="content-wrapper">
+            <div className="muse-readmore">
                 <div className="no-posts-div">{noUserPosts()}</div>
+                <div>
+                    <div className="delete-account-div">
+                        <p>If you wish to delete your account, click the button below.</p>
+                        <button className="muse-readmore" onClick={handleDeleteAccountClick}>Delete Account</button>
+                    </div>
+                </div>
             </div>
 
         )
@@ -99,9 +118,9 @@ const Author = ({ user }) => {
 
             <div>{currentAuthor ? postsDisplay : null}</div>
 
-            <div className="padding-div">
+            <div className="delete-account-div">
                 <p>If you wish to delete your account, click the button below.</p>
-                <button className="muse-readmore">Delete Account</button>
+                <button className="muse-readmore" onClick={handleDeleteAccountClick}>Delete Account</button>
             </div>
 
         </div>

@@ -397,3 +397,7 @@ input[type=textarea] {
     text-decoration: none;
 
 }
+
+.delete-account-div {
+    margin-top: 25px;
+}
