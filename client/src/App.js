@@ -50,7 +50,7 @@ function App() {
           <h1 className="logo">Momentary Muse</h1>
         </div>
         <div className="item">
-          {location.pathname === '/signup' ? <Link to='/login'>Login</Link> : <Link to='/signup'>Signup</Link>}
+          {location.pathname === '/signup' ? <div className='navlinks'><button><Link to='/login'>Login</Link></button></div> : <div className='navlinks'><button><Link to='/signup'>Signup</Link></button></div>}
         </div>
       </div>
 
