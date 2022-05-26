@@ -129,6 +129,12 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
     }
 
     const handleDeleteCommentClick = (e) => {
+        e.preventDefault()
+        fetch(`/posts/${post.id}/comments/${comment.id}`, {
+            method: 'DELETE'
+        })
+        .then(r => r.json())
+        .then(setPost)
         console.log(comment)
     }
 
@@ -143,7 +149,8 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
         })
             .then(r => r.json())
             .then(data => {
-                console.log(data)
+                console.log(data.post)
+                setPost(data.post)
 
             })
     }

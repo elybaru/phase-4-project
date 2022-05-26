@@ -102,10 +102,10 @@ const Author = ({ user, handleLogoutClick, setUser }) => {
             <div className="muse-readmore">
                 <div className="no-posts-div">{noUserPosts()}</div>
                 <div>
-                    <div className="delete-account-div">
+                    {isAuthor ? <div className="delete-account-div">
                         <p>If you wish to delete your account, click the button below.</p>
                         <button className="muse-readmore" onClick={handleDeleteAccountClick}>Delete Account</button>
-                    </div>
+                    </div> : null}
                 </div>
             </div>
 
@@ -118,10 +118,10 @@ const Author = ({ user, handleLogoutClick, setUser }) => {
 
             <div>{currentAuthor ? postsDisplay : null}</div>
 
-            <div className="delete-account-div">
+            {isAuthor ? <div className="delete-account-div">
                 <p>If you wish to delete your account, click the button below.</p>
                 <button className="muse-readmore" onClick={handleDeleteAccountClick}>Delete Account</button>
-            </div>
+            </div> : null}
 
         </div>
     )

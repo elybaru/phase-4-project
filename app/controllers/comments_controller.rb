@@ -19,12 +19,12 @@ class CommentsController < ApplicationController
         render json: post, status: :created
     end
 
-    ## New today thursday
+    
     def update
         post = Post.find(params[:post_id])
         comment = post.comments.find(params[:id])
         comment.update!(comment_params)
-        render json: comment, status: :created
+        render json: Post.find(params[:post_id]), status: :created
     end
 
     def destroy
@@ -32,6 +32,7 @@ class CommentsController < ApplicationController
         # comment = post.comment.find(params[:id])
         # comment.destroy
         comment = Comment.find(params[:id]).destroy
+        render json: Post.find(params[:post_id])
         # restful convention dont return on delete
     end
 
