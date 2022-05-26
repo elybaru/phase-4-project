@@ -120,7 +120,7 @@ const Author = ({ user, handleLogoutClick, setUser }) => {
 
             {isAuthor ? <div className="delete-account-div">
                 <p>If you wish to delete your account, click the button below.</p>
-                <button className="muse-readmore" onClick={handleDeleteAccountClick}>Delete Account</button>
+                <button className="muse-readmore delete" onClick={handleDeleteAccountClick}>Delete Account</button>
             </div> : null}
 
         </div>

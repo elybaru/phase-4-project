@@ -133,8 +133,8 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
         fetch(`/posts/${post.id}/comments/${comment.id}`, {
             method: 'DELETE'
         })
-        .then(r => r.json())
-        .then(setPost)
+            .then(r => r.json())
+            .then(setPost)
         console.log(comment)
     }
 
@@ -160,9 +160,7 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
             <form className="main-comment-form" onSubmit={handleEditCommentSubmit}>
                 <input type="text" value={editComment} onChange={handleEditCommentChange} />
                 <input type='submit' value="Update Comment" />
-                <div>
-                    <button className="muse-readmore" onClick={handleDeleteCommentClick}>Delete Comment</button>
-                </div>
+                <button className="muse-delete-comment-click" onClick={handleDeleteCommentClick}>Delete Comment</button>
             </form >
 
         )
@@ -182,12 +180,10 @@ const Comment = ({ handleUpdateLike, handleDeleteLike, comment, user, setPost, p
                     <p>{comment.likes.length == 1 ? `${comment.likes.length} like` : `${comment.likes.length} likes`}</p>
                     <button className="individual-comment-like-button" onClick={like}>{isLiked ? <FaHeart /> : <FaRegHeart />}</button>
                 </div>
+                {isAuthor ? <button className="individual-comment-reply-button" onClick={handleEditCommentClick}>Edit</button> : null}
                 <button className="individual-comment-reply-button" onClick={handleReplyClick}>Reply</button>
 
                 <div> {replyClicked ? <CommentForm comment={comment} setPost={setPost} post={post} setReplyClicked={setReplyClicked} /> : ""}
-                </div>
-                <div>
-                    {isAuthor ? <button className="individual-comment-reply-button" onClick={handleEditCommentClick}>Edit</button> : null}
                 </div>
                 <div>
                     {comment.comments ? comment.comments.map(comment => { <Comment post={post} setPost={setPost} handleUpdateLike={handleUpdateCommentLike} handleDeleteLike={handleDeleteCommentLike} comment={comment} /> }) : null}

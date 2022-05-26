@@ -79,10 +79,15 @@ select {
   }
 }
 
+a {
+    color: #212121;
+}
+
 button, 
 input[type=submit],
 input[type=button],
-.muse-readmore a
+.muse-readmore a, 
+.muse-delete-comment-click a
  {
     display: inline-block;
     border: none;
@@ -145,6 +150,7 @@ h3 {
     padding: 0px 8px;
     text-decoration: none;
     transition: color 250ms ease-in-out;
+    color: #212121;
   
 }
 
@@ -335,7 +341,7 @@ input[type=textarea] {
 
 .individual-comment-reply-button {
     display: inline-block;
-    margin: 8px 0px;
+    margin: 8px 15px 8px 0px;
 }
 
 .nested-comment-wrapper {
@@ -399,5 +405,16 @@ input[type=textarea] {
 }
 
 .delete-account-div {
-    margin-top: 25px;
+    margin-top: 150px;
+    font-size: 14px;
+}
+
+.muse-delete-comment-click {
+    margin: 16px 16px;
+
+}
+
+.delete {
+    color: coral;
+    font-size: 14px;
 }
