@@ -1,4 +1,21 @@
-# Project Template: React/Rails API
+
+# Momentary Muse
+
+This app is a simple blog site, with a react front end and rails API backend. 
+
+In order to run the app locally, the following are required: 
+
+- Ruby 2.7.4
+- NodeJS (v16), and npm
+- Postgresql
+
+# Functionality:
+
+- Users can create an account and login.
+- You can create, edit and delete your own blog posts.
+- You can view blog posts created by other users.
+- You can like and comment on both posts and comments. 
+- You can delete your account. 
 
 ## Description
 
